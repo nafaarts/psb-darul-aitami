@@ -19,9 +19,23 @@ class KonfigurasiController extends Controller
         return view('admin.konfigurasi', compact('data'));
     }
 
+    public function pengumuman()
+    {
+        $pengumuman = SiteMeta::where('name', 'pengumuman')->first()?->value;
+
+        return view('admin.pengumuman', compact('pengumuman'));
+    }
+
+    public function profil()
+    {
+        $profil = SiteMeta::where('name', 'profil')->first()?->value;
+
+        return view('admin.profil', compact('profil'));
+    }
+
     public function update(Request $request)
     {
-        $path = 'public/meta/';
+        // $path = 'public/meta/';
 
         switch ($request->type) {
             case 'status-pendaftaran':
@@ -34,72 +48,28 @@ class KonfigurasiController extends Controller
                 $message = 'Status Pendaftaran berhasil diubah.';
                 break;
 
-            case 'pengumuman-pendaftaran':
+            case 'pengumuman':
                 $request->validate([
-                    'pengumuman-pendaftaran' => 'required|mimes:pdf'
+                    'pengumuman' => 'required'
                 ]);
 
-                $old = SiteMeta::where('name', 'pengumuman-pendaftaran')->first();
-                if ($old) { File::delete($old->value); }
-
-                $request->file('pengumuman-pendaftaran')->store($path);
-
-                SiteMeta::updateOrCreate(['name' => 'pengumuman-pendaftaran'], [
-                    'value' => $request->file('pengumuman-pendaftaran')->hashName('storage/meta/')
+                SiteMeta::updateOrCreate(['name' => 'pengumuman'], [
+                    'value' => $request->pengumuman
                 ]);
 
-                $message = 'Pengumuman Pendaftaran berhasil diubah.';
+                $message = 'Pengumuman berhasil diubah.';
                 break;
 
-            case 'alur-pendaftaran':
+            case 'profil':
                 $request->validate([
-                    'alur-pendaftaran' => 'required|image'
+                    'profil' => 'required'
                 ]);
 
-                $old = SiteMeta::where('name', 'alur-pendaftaran')->first();
-                if ($old) { File::delete($old->value); }
-
-                $request->file('alur-pendaftaran')->store($path);
-
-                SiteMeta::updateOrCreate(['name' => 'alur-pendaftaran'], [
-                    'value' => $request->file('alur-pendaftaran')->hashName('storage/meta/')
+                SiteMeta::updateOrCreate(['name' => 'profil'], [
+                    'value' => $request->profil
                 ]);
 
-                $message = 'Alur Pendaftar berhasil diubah.';
-                break;
-
-            case 'informasi-biaya':
-                $request->validate([
-                    'informasi-biaya' => 'required|mimes:pdf'
-                ]);
-
-                $old = SiteMeta::where('name', 'informasi-biaya')->first();
-                if ($old) { File::delete($old->value); }
-
-                $request->file('informasi-biaya')->store($path);
-
-                SiteMeta::updateOrCreate(['name' => 'informasi-biaya'], [
-                    'value' => $request->file('informasi-biaya')->hashName('storage/meta/')
-                ]);
-
-                $message = 'Informasi Biaya berhasil diubah.';
-                break;
-
-            case 'pengumuman-kelulusan':
-                $request->validate([
-                    'pengumuman-kelulusan' => 'required|mimes:pdf'
-                ]);
-
-                $old = SiteMeta::where('name', 'pengumuman-kelulusan')->first();
-                if ($old) { File::delete($old->value); }
-
-                $request->file('pengumuman-kelulusan')->store($path);
-
-                SiteMeta::updateOrCreate(['name' => 'pengumuman-kelulusan'], [
-                    'value' => $request->file('pengumuman-kelulusan')->hashName('storage/meta/')
-                ]);
-
-                $message = 'Pengumuman Kelulusan berhasil diubah.';
+                $message = 'Profil berhasil diubah.';
                 break;
 
             default:

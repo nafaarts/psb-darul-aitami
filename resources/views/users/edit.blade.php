@@ -3,6 +3,8 @@
 @section('title', 'Edit User')
 
 @section('content')
+    <x-admin-navbar />
+
     <div class="card p-3">
         <h5 class="m-0">Edit User</h5>
         <hr>

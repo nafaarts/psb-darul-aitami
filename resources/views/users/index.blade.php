@@ -3,6 +3,8 @@
 @section('title', 'User')
 
 @section('content')
+    <x-admin-navbar />
+
     @if (session('berhasil'))
         <div class="alert alert-success" role="alert">
             {{ session('berhasil') }}

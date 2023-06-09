@@ -3,6 +3,8 @@
 @section('title', 'Dashboard')
 
 @section('content')
+    <x-admin-navbar />
+
     <div class="row">
         <div class="col-md-3">
             <div class="card mb-3 p-3">
@@ -28,6 +30,31 @@
                 <h3 class="m-0">{{ $jumlahLulus }}</h3>
             </div>
         </div>
+    </div>
+
+    <div class="card p-3 mb-3 h-100">
+        <small class="text-muted mb-2">
+            Status Pendaftaran
+        </small>
+        <form action="{{ route('konfigurasi.update', ['type' => 'status-pendaftaran']) }}" method="POST">
+            @csrf
+            @method('PUT')
+            @if ($data['status-pendaftaran'])
+                <div class="d-flex align-items-center gap-2">
+                    <button type="submit" class="btn btn-sm btn-secondary px-4 text-white" style="width:fit-content">
+                        <i class="bi bi-x-circle-fill me-1"></i> Tutup Pendaftaran
+                    </button>
+                    <small class="text-muted">Pendaftaran Dibuka</small>
+                </div>
+            @else
+                <div class="d-flex align-items-center gap-2">
+                    <button type="submit" class="btn btn-sm btn-primary px-4 text-white" style="width:fit-content">
+                        <i class="bi bi-check-circle-fill me-1"></i> Buka Pendaftaran
+                    </button>
+                    <small class="text-muted">Pendaftaran Ditutup</small>
+                </div>
+            @endif
+        </form>
     </div>
 
     <form action="{{ route('dashboard') }}" method="GET" class="input-group mb-3">

@@ -3,6 +3,8 @@
 @section('title', 'Edit Santri')
 
 @section('content')
+    <x-admin-navbar />
+
     <div class="row">
         <div class="col-md-3">
             <div class="card p-3">

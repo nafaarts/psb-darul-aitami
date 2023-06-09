@@ -23,21 +23,9 @@ Route::get('/profil-pondok', function () {
     return view('informasi.profil-pondok');
 })->name('profil-pondok');
 
-Route::get('/pengumuman-pendaftaran', function () {
-    return view('informasi.pengumuman-pendaftaran');
-})->name('pengumuman-pendaftaran');
-
-Route::get('/alur-pendaftaran', function () {
-    return view('informasi.alur-pendaftaran');
-})->name('alur-pendaftaran');
-
-Route::get('/informasi-biaya', function () {
-    return view('informasi.informasi-biaya');
-})->name('informasi-biaya');
-
-Route::get('/pengumuman-kelulusan', function () {
-    return view('informasi.pengumuman-kelulusan');
-})->name('pengumuman-kelulusan');
+Route::get('/informasi', function () {
+    return view('informasi.informasi');
+})->name('informasi');
 
 Auth::routes([
     'reset' => false
@@ -80,7 +68,9 @@ Route::middleware('auth')->group(function () {
 
         Route::delete('/santri/{santri}/destroy', [App\Http\Controllers\SantriController::class, 'destroy'])->name('santri.destroy');
 
-        Route::get('/konfigurasi', [App\Http\Controllers\KonfigurasiController::class, 'index'])->name('konfigurasi');
+        Route::get('/edit-pengumuman', [App\Http\Controllers\KonfigurasiController::class, 'pengumuman'])->name('pengumuman.edit');
+        Route::get('/edit-profil', [App\Http\Controllers\KonfigurasiController::class, 'profil'])->name('profil.edit');
+
         Route::put('/konfigurasi', [App\Http\Controllers\KonfigurasiController::class, 'update'])->name('konfigurasi.update');
     });
 

@@ -19,6 +19,8 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    @stack('head')
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
@@ -50,53 +52,15 @@
                     <li class="nav-item">
                         <a @class(['nav-link', 'active' => request()->routeIs('profil-pondok')]) href="{{ route('profil-pondok') }}">Profil Pondok</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            PSB
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
-                            <li>
-                                <a @class([
-                                    'dropdown-item',
-                                    'active' => request()->routeIs('pengumuman-pendaftaran'),
-                                ]) href="{{ route('pengumuman-pendaftaran') }}">
-                                    Pengumuman Penerimaan
-                                </a>
-                            </li>
-                            <li>
-                                <a @class([
-                                    'dropdown-item',
-                                    'active' => request()->routeIs('alur-pendaftaran'),
-                                ]) href="{{ route('alur-pendaftaran') }}">
-                                    Alur Pendaftaran
-                                </a>
-                            </li>
-                            <li>
-                                <a @class([
-                                    'dropdown-item',
-                                    'active' => request()->routeIs('pendaftaran'),
-                                ]) href="{{ route('pendaftaran') }}">Formulir Pendaftaran
-                                </a>
-                            </li>
-                            <li>
-                                <a @class([
-                                    'dropdown-item',
-                                    'active' => request()->routeIs('informasi-biaya'),
-                                ]) href="{{ route('informasi-biaya') }}">
-                                    Informasi Biaya
-                                </a>
-                            </li>
-                            <li>
-                                <a @class([
-                                    'dropdown-item',
-                                    'active' => request()->routeIs('pengumuman-kelulusan'),
-                                ]) href="{{ route('pengumuman-kelulusan') }}">
-                                    Pengumuman Kelulusan
-                                </a>
-                            </li>
-                        </ul>
+
+                    <li class="nav-item">
+                        <a @class(['nav-link', 'active' => request()->routeIs('informasi')]) href="{{ route('informasi') }}">Informasi</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a @class(['nav-link', 'active' => request()->routeIs('pendaftaran')]) href="{{ route('pendaftaran') }}">Formulir PSB</a>
+                    </li>
+
                     @auth
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
@@ -110,20 +74,6 @@
                                         <a @class(['dropdown-item', 'active' => request()->routeIs('dashboard')]) href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
                                 @endcanany
-                                @can('admin')
-                                    <li>
-                                        <a @class([
-                                            'dropdown-item',
-                                            'active' => request()->routeIs('users.index'),
-                                        ]) href="{{ route('users.index') }}">User</a>
-                                    </li>
-                                    <li>
-                                        <a @class([
-                                            'dropdown-item',
-                                            'active' => request()->routeIs('konfigurasi'),
-                                        ]) href="{{ route('konfigurasi') }}">Konfigurasi</a>
-                                    </li>
-                                @endcan
                                 {{-- // end admin and teacher --}}
                                 <li>
                                     <a @class(['dropdown-item', 'active' => request()->routeIs('profil')]) href="{{ route('profil') }}">Profil</a>
@@ -217,6 +167,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
     </script>
+
+    @stack('scripts')
 </body>
 
 </html>

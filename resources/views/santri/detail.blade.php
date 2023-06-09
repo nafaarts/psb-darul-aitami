@@ -3,6 +3,7 @@
 @section('title', 'Detail Santri')
 
 @section('content')
+    <x-admin-navbar />
 
     <div class="card p-3">
         <h5 class="m-0">Detail Santri</h5>

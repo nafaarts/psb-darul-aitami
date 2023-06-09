@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Santri;
+use App\Models\SiteMeta;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -29,6 +30,8 @@ class DashboardController extends Controller
             ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%')
             ->paginate(15);
 
-        return view('admin.dashboard', compact('jumlahPendaftar', 'jumlahSantriwati', 'jumlahSantriwan', 'jumlahLulus', 'santri'));
+        $data['status-pendaftaran'] = SiteMeta::where('name', 'status-pendaftaran')->first()?->value ?? false;
+
+        return view('admin.dashboard', compact('jumlahPendaftar', 'jumlahSantriwati', 'jumlahSantriwan', 'jumlahLulus', 'santri', 'data'));
     }
 }

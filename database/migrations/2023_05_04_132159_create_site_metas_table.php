@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('site_metas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('value');
+            $table->text('value');
             $table->timestamps();
         });
     }
