@@ -27,9 +27,7 @@ Route::get('/informasi', function () {
     return view('informasi.informasi');
 })->name('informasi');
 
-Auth::routes([
-    'reset' => false
-]);
+Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard')->middleware('can:admin-guru');
