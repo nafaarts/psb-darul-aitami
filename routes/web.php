@@ -75,6 +75,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/edit-pengumuman', [App\Http\Controllers\KonfigurasiController::class, 'pengumuman'])->name('pengumuman.edit');
         Route::get('/edit-profil', [App\Http\Controllers\KonfigurasiController::class, 'profil'])->name('profil.edit');
 
+        Route::get('/remove-meta/{sitemeta}', [App\Http\Controllers\KonfigurasiController::class, 'removeMetaFile'])->name('remove.meta');
+
         Route::put('/konfigurasi', [App\Http\Controllers\KonfigurasiController::class, 'update'])->name('konfigurasi.update');
     });
 
