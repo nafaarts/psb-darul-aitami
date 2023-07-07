@@ -81,10 +81,13 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-end gap-2 mt-2">
-                <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
-                <button type="submit" class="btn btn-primary text-white btn-sm">Simpan dan lanjutkan <i
-                        class="bi bi-arrow-right"></i></button>
+            <div class="d-flex justify-content-between gap-2 mt-2">
+                <a href="{{ route('pendaftaran', ['step' => 'orangtua']) }}" class="btn btn-secondary btn-sm">Kembali</a>
+                <div>
+                    <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+                    <button type="submit" class="btn btn-primary text-white btn-sm">Simpan dan lanjutkan <i
+                            class="bi bi-arrow-right"></i></button>
+                </div>
             </div>
         </form>
     </div>

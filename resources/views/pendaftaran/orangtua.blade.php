@@ -130,6 +130,17 @@
 
                 <div class="col-md-6">
                     <div class="mb-3">
+                        <small class="form-label" for="alamat">Alamat</small>
+                        <input type="text" class="form-control form-control-sm" id="alamat" name="alamat"
+                            placeholder="Masukan alamat anda" value="{{ old('alamat', $orangTua?->alamat) }}">
+                        @error('alamat')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+
+                {{-- <div class="col-md-6">
+                    <div class="mb-3">
                         <small class="form-label" for="jalan">Jalan</small>
                         <input type="text" class="form-control form-control-sm" id="jalan" name="jalan"
                             placeholder="Masukan jalan anda" value="{{ old('jalan', $orangTua?->jalan) }}">
@@ -137,10 +148,10 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- // start here! --}}
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <div class="mb-3">
                         <small class="form-label" for="provinsi">Provinsi</small>
                         <select class="form-select form-select-sm" id="provinsi" name="provinsi"
@@ -192,111 +203,152 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                </div>
+                </div> --}}
 
                 {{-- // end here --}}
             </div>
-            <div class="d-flex justify-content-end gap-2 mt-2">
-                <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
-                <button type="submit" class="btn btn-primary text-white btn-sm">Simpan dan lanjutkan</button>
+            <div class="d-flex justify-content-between gap-2 mt-2">
+                <a href="{{ route('pendaftaran', ['step' => 'data-diri']) }}"
+                    class="btn btn-secondary btn-sm">Kembali</a>
+
+                <div>
+                    <button type="reset" class="btn btn-secondary btn-sm">Reset</button>
+                    <button type="submit" class="btn btn-primary text-white btn-sm">Simpan dan lanjutkan</button>
+                </div>
             </div>
         </form>
     </div>
 
-    <script>
-        const selectProvinsi = document.getElementById('provinsi')
-        const selectKabupaten = document.getElementById('kabupaten')
-        const selectKecamatan = document.getElementById('kecamatan')
-        const selectDesa = document.getElementById('desa')
+    {{-- <script>
+        // const selectProvinsi = document.getElementById('provinsi')
+        // const selectKabupaten = document.getElementById('kabupaten')
+        // const selectKecamatan = document.getElementById('kecamatan')
+        // const selectDesa = document.getElementById('desa')
 
         // {{ old('provinsi', $orangTua?->provinsi) }}
         // {{ old('kabupaten', $orangTua?->kabupaten) }}
         // {{ old('kecamatan', $orangTua?->kecamatan) }}
         // {{ old('desa', $orangTua?->desa) }}
 
-        function removeChildren(parent) {
-            while (parent.firstChild) {
-                parent.removeChild(parent.firstChild)
-            }
-        }
+        // const removeChildren = (parent) => {
+        //     while (parent.firstChild) {
+        //         parent.removeChild(parent.firstChild)
+        //     }
+        // }
 
-        function getProvinsi() {
-            const url = "https://dev.farizdotid.com/api/daerahindonesia/provinsi";
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    data?.provinsi.forEach(item => {
-                        const option = document.createElement('option')
-                        option.dataset.id = item.id
-                        option.text = item.nama
+        // function getDesa(old = null) {
+        //     let _id = selectKecamatan.options[selectKecamatan.selectedIndex].dataset.id;
 
-                        selectProvinsi.append(option)
-                    });
-                })
-                .catch(error => console.error(error))
-        }
+        //     const url =
+        //         `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${_id}`;
 
-        function getKabupaten() {
-            let _id = selectProvinsi.options[selectProvinsi.selectedIndex].dataset.id;
+        //     fetch(url)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             let oldKelurahan = "{{ old('desa', $orangTua?->desa) }}" || null;
 
-            const url = `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${_id}`;
+        //             removeChildren(selectDesa)
+        //             data?.kelurahan.forEach(item => {
+        //                 const option = document.createElement('option')
+        //                 option.dataset.id = item.id
+        //                 option.text = item.nama
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    removeChildren(selectKabupaten)
-                    data?.kota_kabupaten.forEach(item => {
-                        const option = document.createElement('option')
-                        option.dataset.id = item.id
-                        option.text = item.nama
+        //                 if (item.nama === oldKelurahan) {
+        //                     option.selected = true
+        //                 }
 
-                        selectKabupaten.append(option)
-                    });
-                })
-                .catch(error => console.error(error))
-        }
+        //                 selectDesa.append(option)
+        //             });
+        //         })
+        //         .catch(error => console.error(error))
+        // }
 
-        function getKecamatan() {
-            let _id = selectKabupaten.options[selectKabupaten.selectedIndex].dataset.id;
+        // function getKecamatan(old = null) {
+        //     let _id = selectKabupaten.options[selectKabupaten.selectedIndex].dataset.id;
 
-            const url = `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${_id}`;
+        //     const url = `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${_id}`;
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    removeChildren(selectKecamatan)
-                    data?.kecamatan.forEach(item => {
-                        const option = document.createElement('option')
-                        option.dataset.id = item.id
-                        option.text = item.nama
+        //     fetch(url)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             let oldKecamatan = "{{ old('kecamatan', $orangTua?->kecamatan) }}" || null;
 
-                        selectKecamatan.append(option)
-                    });
-                })
-                .catch(error => console.error(error))
-        }
+        //             removeChildren(selectKecamatan)
+        //             data?.kecamatan.forEach(item => {
+        //                 const option = document.createElement('option')
+        //                 option.dataset.id = item.id
+        //                 option.text = item.nama
 
-        function getDesa() {
-            let _id = selectKecamatan.options[selectKecamatan.selectedIndex].dataset.id;
+        //                 if (item.nama === oldKecamatan) {
+        //                     option.selected = true
+        //                 }
 
-            const url =
-                `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${_id}`;
+        //                 selectKecamatan.append(option)
+        //             });
 
-            fetch(url)
-                .then(response => response.json())
-                .then(data => {
-                    removeChildren(selectDesa)
-                    data?.kelurahan.forEach(item => {
-                        const option = document.createElement('option')
-                        option.dataset.id = item.id
-                        option.text = item.nama
+        //             if (oldKecamatan) {
+        //                 getDesa()
+        //             }
+        //         })
+        //         .catch(error => console.error(error))
+        // }
 
-                        selectDesa.append(option)
-                    });
-                })
-                .catch(error => console.error(error))
-        }
+        // function getKabupaten() {
+        //     let _id = selectProvinsi.options[selectProvinsi.selectedIndex].dataset.id;
 
-        getProvinsi()
-    </script>
+        //     const url = `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${_id}`;
+
+        //     fetch(url)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             let oldKabupaten = "{{ old('kabupaten', $orangTua?->kabupaten) }}" || null;
+
+        //             removeChildren(selectKabupaten)
+        //             data?.kota_kabupaten.forEach(item => {
+        //                 const option = document.createElement('option')
+        //                 option.dataset.id = item.id
+        //                 option.text = item.nama
+
+        //                 if (item.nama === oldKabupaten) {
+        //                     option.selected = true
+        //                 }
+
+        //                 selectKabupaten.append(option)
+        //             });
+
+        //             if (oldKabupaten) {
+        //                 getKecamatan()
+        //             }
+        //         })
+        //         .catch(error => console.error(error))
+        // }
+
+        // function getProvinsi() {
+        //     const url = "https://dev.farizdotid.com/api/daerahindonesia/provinsi";
+        //     fetch(url)
+        //         .then(response => response.json())
+        //         .then(data => {
+        //             let oldProvinsi = "{{ old('provinsi', $orangTua?->provinsi) }}" || null;
+
+        //             data?.provinsi.forEach(item => {
+        //                 const option = document.createElement('option')
+        //                 option.dataset.id = item.id
+        //                 option.text = item.nama
+
+        //                 if (item.nama === oldProvinsi) {
+        //                     option.selected = true
+        //                 }
+
+        //                 selectProvinsi.append(option)
+        //             });
+
+        //             if (oldProvinsi) {
+        //                 getKabupaten()
+        //             }
+        //         })
+        //         .catch(error => console.error(error))
+        // }
+
+        // getProvinsi()
+    </script> --}}
 @endsection

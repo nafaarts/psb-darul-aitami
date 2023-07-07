@@ -153,7 +153,20 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <small class="form-label" for="alamat">Alamat</small>
+                                        <input type="text" class="form-control form-control-sm" id="alamat" name="alamat"
+                                            placeholder="Masukan alamat anda"
+                                            value="{{ old('alamat', $santri?->orangTua?->alamat) }}">
+                                        @error('alamat')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
+                                    </div>
+                                </div>
+
+                                {{-- <div class="col-md-6">
                                     <div class="mb-3">
                                         <small class="form-label" for="jalan">Jalan</small>
                                         <input type="text" class="form-control form-control-sm" id="jalan" name="jalan"
@@ -206,7 +219,7 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <small class="form-label" for="no_hp">Nomor Handphone</small>

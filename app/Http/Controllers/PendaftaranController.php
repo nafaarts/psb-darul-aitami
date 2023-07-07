@@ -9,6 +9,7 @@ use App\Models\RiwayatPenyakit;
 use App\Models\Santri;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class PendaftaranController extends Controller
 {
@@ -83,14 +84,16 @@ class PendaftaranController extends Controller
             'berat_badan' => 'required|numeric',
             'buta_warna' => 'required',
             'status_anak' => 'required',
-            'foto' => 'required|image'
+            'foto' => ['image', 'max:2048', Rule::requiredIf(!Santri::where('user_id', auth()->id())->exists())]
         ]);
 
         User::findOrFail(auth()->id())->update([
             'nama' => $request->nama
         ]);
 
-        $request->file('foto')->store('/public/santri/');
+        if ($request->has('foto')) {
+            $request->file('foto')->store('/public/santri/');
+        }
 
         $noDaftar = 'PSB-' . str_pad((Santri::latest()->first()->id ?? 0) + 1, 4, '0', STR_PAD_LEFT);
 
@@ -110,7 +113,7 @@ class PendaftaranController extends Controller
             'berat_badan' => $request->berat_badan,
             'buta_warna' => $request->buta_warna,
             'status_anak' => $request->status_anak,
-            'foto' => $request->file('foto')->hashName(),
+            'foto' => $request->has('foto') ? $request->file('foto')->hashName() : auth()->user()->santri->foto,
         ]);
 
         return redirect()->route('pendaftaran', ['step' => 'orangtua']);
@@ -122,11 +125,12 @@ class PendaftaranController extends Controller
             'nama_ayah' => 'required',
             'nama_ibu' => 'required',
             'agama' => 'required',
-            'jalan' => 'required',
-            'desa' => 'required',
-            'kecamatan' => 'required',
-            'kabupaten' => 'required',
-            'provinsi' => 'required',
+            'alamat' => 'required',
+            // 'jalan' => 'required',
+            // 'desa' => 'required',
+            // 'kecamatan' => 'required',
+            // 'kabupaten' => 'required',
+            // 'provinsi' => 'required',
             'no_hp' => 'required|numeric',
             'pekerjaan_ayah' => 'required',
             'pekerjaan_ibu' => 'required',
@@ -147,11 +151,12 @@ class PendaftaranController extends Controller
             'nama_ayah' => $request->nama_ayah,
             'nama_ibu' => $request->nama_ibu,
             'agama' => $request->agama,
-            'jalan' => $request->jalan,
-            'desa' => $request->desa,
-            'kecamatan' => $request->kecamatan,
-            'kabupaten' => $request->kabupaten,
-            'provinsi' => $request->provinsi,
+            'alamat' => $request->alamat,
+            // 'jalan' => $request->jalan,
+            // 'desa' => $request->desa,
+            // 'kecamatan' => $request->kecamatan,
+            // 'kabupaten' => $request->kabupaten,
+            // 'provinsi' => $request->provinsi,
             'no_hp' => $request->no_hp,
             'pekerjaan_ayah' => $request->pekerjaan_ayah,
             'pekerjaan_ibu' => $request->pekerjaan_ibu,

@@ -10,7 +10,10 @@
     <section class="card mb-3 p-3">
         <h5 class="m-0 mt-3">Profil Pondok</h5>
         <hr>
+        {{-- // image here --}}
 
         {!! $profil !!}
+
+        {{-- link here --}}
     </section>
 @endsection

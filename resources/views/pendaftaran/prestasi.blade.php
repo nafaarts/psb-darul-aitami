@@ -54,7 +54,10 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-end gap-2 mt-2">
+        <div class="d-flex justify-content-between gap-2 mt-2">
+            <a href="{{ route('pendaftaran', ['step' => 'riwayat-penyakit']) }}"
+                class="btn btn-secondary btn-sm">Kembali</a>
+
             <a href="{{ route('profil') }}" class="btn btn-primary text-white btn-sm">Selesai <i
                     class="bi bi-check-lg"></i></a>
         </div>

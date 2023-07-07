@@ -27,6 +27,7 @@ class Santri extends Model
         'buta_warna',
         'status_anak',
         'status_pembayaran',
+        'bukti_pembayaran',
         'status_lulus',
         'foto'
     ];

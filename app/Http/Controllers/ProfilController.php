@@ -14,6 +14,10 @@ class ProfilController extends Controller
 
         $lengkapMendaftar = $santri && $santri->pendidikan && $santri->orangTua;
 
+        if (!$lengkapMendaftar) {
+            return redirect()->route('pendaftaran');
+        }
+
         return view('profil', compact('lengkapMendaftar', 'santri'));
     }
 

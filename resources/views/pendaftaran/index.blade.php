@@ -170,6 +170,7 @@
                     <div class="mb-2">
                         <small for="foto" class="form-label">Pas Foto</small>
                         <input type="file" class="form-control form-control-sm" name="foto">
+                        <small class="text-muted">Pas foto 3 X 4 maksimal: 2 MB</small>
                         @error('foto')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror

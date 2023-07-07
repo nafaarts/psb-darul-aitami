@@ -85,6 +85,17 @@
                             </td>
                         </tr>
                         <tr>
+                            <th>Bukti Pembayaran</th>
+                            <td class="px-2">:</td>
+                            <td>
+                                @if ($santri->bukti_pembayaran)
+                                    <a href="{{ asset('storage/bukti_pembayaran/' . $santri->bukti_pembayaran) }}"
+                                        target="_blank">Lihat
+                                        Bukti Pembayaran</a>
+                                @endif
+                            </td>
+                        </tr>
+                        <tr>
                             <th>Status Kelulusan</th>
                             <td class="px-2">:</td>
                             <td>{{ $santri->status_lulus ? 'LULUS' : '-' }}</td>
@@ -139,32 +150,32 @@
                         <tr>
                             <th>Sekolah Asal</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->pendidikan->nama_sekolah }}</td>
+                            <td>{{ $santri->pendidikan?->nama_sekolah }}</td>
                         </tr>
                         <tr>
                             <th>NPSN Sekolah</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->pendidikan->npsn_sekolah }}</td>
+                            <td>{{ $santri->pendidikan?->npsn_sekolah }}</td>
                         </tr>
                         <tr>
                             <th>Alamat Sekolah</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->pendidikan->alamat_sekolah }}</td>
+                            <td>{{ $santri->pendidikan?->alamat_sekolah }}</td>
                         </tr>
                         <tr>
                             <th>No Ijazah</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->pendidikan->no_ijazah }}</td>
+                            <td>{{ $santri->pendidikan?->no_ijazah }}</td>
                         </tr>
                         <tr>
                             <th>Tahun Ijazah</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->pendidikan->tahun_ijazah }}</td>
+                            <td>{{ $santri->pendidikan?->tahun_ijazah }}</td>
                         </tr>
                         <tr>
                             <th>Nilai Rata-rata Rapor</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->pendidikan->nilai_rapor }}</td>
+                            <td>{{ $santri->pendidikan?->nilai_rapor }}</td>
                         </tr>
                     </table>
                 </div>
@@ -177,7 +188,7 @@
                             <td class="px-2">:</td>
                             <td>
                                 <span>
-                                    {{ $santri->prestasi->map(fn($item) => $item->nama . " [ $item->tingkat - $item->juara ]")->join(', ') }}
+                                    {{ $santri->prestasi?->map(fn($item) => $item->nama . " [ $item->tingkat - $item->juara ]")->join(', ') }}
                                 </span>
                             </td>
                         </tr>
@@ -193,73 +204,78 @@
                         <tr>
                             <th>Nama Ayah</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->nama_ayah }}</td>
+                            <td>{{ $santri->orangTua?->nama_ayah }}</td>
                         </tr>
                         <tr>
                             <th>Nama Ibu</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->nama_ibu }}</td>
+                            <td>{{ $santri->orangTua?->nama_ibu }}</td>
                         </tr>
                         <tr>
                             <th>Nomor Handphone</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->no_hp }}</td>
+                            <td>{{ $santri->orangTua?->no_hp }}</td>
                         </tr>
                         <tr>
                             <th>Pekerjaan Ayah</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->pekerjaan_ayah }}</td>
+                            <td>{{ $santri->orangTua?->pekerjaan_ayah }}</td>
                         </tr>
                         <tr>
                             <th>Pekerjaan Ibu</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->pekerjaan_ibu }}</td>
+                            <td>{{ $santri->orangTua?->pekerjaan_ibu }}</td>
                         </tr>
                         <tr>
                             <th>Pendidikan Ayah</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->pendidikan_ayah }}</td>
+                            <td>{{ $santri->orangTua?->pendidikan_ayah }}</td>
                         </tr>
                         <tr>
                             <th>Pendidikan Ibu</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->pendidikan_ibu }}</td>
+                            <td>{{ $santri->orangTua?->pendidikan_ibu }}</td>
                         </tr>
                         <tr>
                             <th>Penghasilan</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->penghasilan }}</td>
+                            <td>{{ $santri->orangTua?->penghasilan }}</td>
                         </tr>
                         <tr>
                             <th>Agama</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->agama }}</td>
+                            <td>{{ $santri->orangTua?->agama }}</td>
                         </tr>
                         <tr>
+                            <th>Alamat</th>
+                            <td class="px-2">:</td>
+                            <td>{{ $santri->orangTua?->alamat }}</td>
+                        </tr>
+                        {{-- <tr>
                             <th>Jalan</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->jalan }}</td>
+                            <td>{{ $santri->orangTua?->jalan }}</td>
                         </tr>
                         <tr>
                             <th>Desa</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->desa }}</td>
+                            <td>{{ $santri->orangTua?->desa }}</td>
                         </tr>
                         <tr>
                             <th>Kecamatan</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->kecamatan }}</td>
+                            <td>{{ $santri->orangTua?->kecamatan }}</td>
                         </tr>
                         <tr>
                             <th>Kabupaten</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->kabupaten }}</td>
+                            <td>{{ $santri->orangTua?->kabupaten }}</td>
                         </tr>
                         <tr>
                             <th>Provinsi</th>
                             <td class="px-2">:</td>
-                            <td>{{ $santri->orangTua->provinsi }}</td>
-                        </tr>
+                            <td>{{ $santri->orangTua?->provinsi }}</td>
+                        </tr> --}}
                     </table>
                 </div>
 
@@ -307,7 +323,7 @@
                             <td class="px-2">:</td>
                             <td>
                                 <span>
-                                    {{ $santri->riwayatPenyakit->map(fn($item) => $item->nama . " ( $item->kondisi )")->join(', ') }}
+                                    {{ $santri->riwayatPenyakit?->map(fn($item) => $item->nama . " ( $item->kondisi )")->join(', ') }}
                                 </span>
                             </td>
                         </tr>

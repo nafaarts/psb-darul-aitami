@@ -21,7 +21,11 @@
         @endif
 
         <div class="card p-3 mb-3">
-            <h5 class="m-0">Pendaftaran Santri Baru</h5>
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="m-0">Pendaftaran Santri Baru</h5>
+                <a href="{{ route('pendaftaran', ['step' => 'data-diri']) }}" class="btn btn-sm btn-primary text-white"><i
+                        class="bi bi-pencil-fill"></i> Edit Data</a>
+            </div>
             <hr>
             @if ($lengkapMendaftar)
                 <h6>Detail Pendaftaran Anda:</h6>
@@ -93,10 +97,12 @@
                     </div>
                 </div>
                 <hr>
-                <a href="{{ route('pendaftaran.kartu-ujian') }}" class="btn btn-sm btn-primary text-white"
-                    style="width: fit-content">
-                    <i class="bi bi-file-earmark-arrow-down"></i> Download Kartu Ujian
-                </a>
+                @if ($santri?->status_pembayaran)
+                    <a href="{{ route('pendaftaran.kartu-ujian') }}" class="btn btn-sm btn-primary text-white"
+                        style="width: fit-content">
+                        <i class="bi bi-file-earmark-arrow-down"></i> Download Kartu Ujian
+                    </a>
+                @endif
             @else
                 <p>Pendaftaran Santri Baru Pondok Pesantren Darul Aitami.</p>
                 <a href="{{ route('pendaftaran') }}" class="btn btn-sm btn-primary text-white px-4" style="width: fit-content">
@@ -111,8 +117,31 @@
                 <hr>
                 Silahkan transfer sebesar <strong>Rp. 20.000</strong> ke rekening <strong>Bank Aceh
                     12412.123.4123 a/n
-                    Yayasan Darul Aitami</strong> dan konfirmasi dengan mengirimkan bukti transfer melalui whatsapp
+                    Yayasan Darul Aitami</strong> dan konfirmasi dengan mengupload pada form dibawah dan mengirimkan bukti
+                transfer melalui whatsapp
                 <strong>+62832912392 (Muhajjir)</strong>
+            </div>
+
+            <div class="card p-3 mb-3">
+                <form action="{{ route('upload-bukti-pembayaran') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="bukti_pembayaran" class="form-label">Bukti Pembayaran</label>
+                        <input type="file" class="form-control" name="bukti_pembayaran" id="bukti_pembayaran">
+                        @error('bukti_pembayaran')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                        <small class="text-muted">FORMAT JPG,JPEG,PNG. MAX: 2 MB</small>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-primary">Kirim</button>
+                        @if ($santri->bukti_pembayaran)
+                            <a href="{{ asset('storage/bukti_pembayaran/' . $santri->bukti_pembayaran) }}"
+                                target="_blank">Lihat
+                                Bukti Pembayaran</a>
+                        @endif
+                    </div>
+                </form>
             </div>
         @endif
 

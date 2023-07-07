@@ -17,11 +17,12 @@ return new class extends Migration
             $table->string('nama_ayah');
             $table->string('nama_ibu');
             $table->string('agama');
-            $table->string('jalan');
-            $table->string('desa');
-            $table->string('kecamatan');
-            $table->string('kabupaten');
-            $table->string('provinsi');
+            $table->string('alamat');
+            // $table->string('jalan');
+            // $table->string('desa');
+            // $table->string('kecamatan');
+            // $table->string('kabupaten');
+            // $table->string('provinsi');
             $table->string('no_hp');
             $table->string('pekerjaan_ayah');
             $table->string('pekerjaan_ibu');

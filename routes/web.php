@@ -27,10 +27,14 @@ Route::get('/informasi', function () {
     return view('informasi.informasi');
 })->name('informasi');
 
+Route::get('/cek-kelulusan', App\Http\Controllers\CekKelulusanController::class)->name('cek-kelulusan');
+
 Auth::routes();
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard')->middleware('can:admin-guru');
+
+    Route::get('/santri-lulus', [App\Http\Controllers\DashboardController::class, 'santriLulus'])->name('santri.lulus');
 
     Route::get('/santri/{santri:no_daftar}/detail', [App\Http\Controllers\SantriController::class, 'detail'])->name('santri.detail')->middleware('can:admin-guru');
 
@@ -43,6 +47,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/pendaftaran/prestasi/{prestasi}/destroy', [App\Http\Controllers\PendaftaranController::class, 'destroyPrestasi'])->name('pendaftaran.destroy-prestasi');
         Route::post('/pendaftaran/riwayat-penyakit', [App\Http\Controllers\PendaftaranController::class, 'storeRiwayatPenyakit'])->name('pendaftaran.riwayat-penyakit');
         Route::delete('/pendaftaran/riwayat-penyakit/{riwayatpenyakit}/destroy', [App\Http\Controllers\PendaftaranController::class, 'destroyRiwayatPenyakit'])->name('pendaftaran.destroy-riwayat-penyakit');
+
+        Route::post('/upload-bukti-pembayaran', App\Http\Controllers\UploadBuktiPembayaranController::class)->name('upload-bukti-pembayaran');
 
         Route::get('/pendaftaran/kartu-ujian', KartuUjianController::class)->name('pendaftaran.kartu-ujian');
     });

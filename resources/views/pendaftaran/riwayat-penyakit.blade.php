@@ -51,7 +51,9 @@
                 </tbody>
             </table>
         </div>
-        <div class="d-flex justify-content-end gap-2 mt-2">
+        <div class="d-flex justify-content-between gap-2 mt-2">
+            <a href="{{ route('pendaftaran', ['step' => 'pendidikan']) }}" class="btn btn-secondary btn-sm">Kembali</a>
+
             <a href="{{ route('pendaftaran', ['step' => 'prestasi']) }}" class="btn btn-primary text-white btn-sm">lanjutkan
                 <i class="bi bi-arrow-right"></i></a>
         </div>

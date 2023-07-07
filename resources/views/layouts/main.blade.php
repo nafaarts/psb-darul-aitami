@@ -54,6 +54,10 @@
                     </li>
 
                     <li class="nav-item">
+                        <a @class(['nav-link', 'active' => request()->routeIs('cek-kelulusan')]) href="{{ route('cek-kelulusan') }}">Cek Kelulusan</a>
+                    </li>
+
+                    <li class="nav-item">
                         <a @class(['nav-link', 'active' => request()->routeIs('informasi')]) href="{{ route('informasi') }}">Informasi</a>
                     </li>
 

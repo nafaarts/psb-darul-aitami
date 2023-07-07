@@ -6,6 +6,7 @@ use App\Models\Santri;
 use App\Models\SiteMeta;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -33,5 +34,22 @@ class DashboardController extends Controller
         $data['status-pendaftaran'] = SiteMeta::where('name', 'status-pendaftaran')->first()?->value ?? false;
 
         return view('admin.dashboard', compact('jumlahPendaftar', 'jumlahSantriwati', 'jumlahSantriwan', 'jumlahLulus', 'santri', 'data'));
+    }
+
+    function santriLulus()
+    {
+        $santri = Santri::when(request('cari'), function ($query) {
+            $query->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')
+                ->orWhere('nik', 'LIKE', '%' . request('cari') . '%')
+                ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%');
+        })
+            ->orWhereHas('user', function ($query) {
+                return $query->where('nama', 'LIKE', '%' . request('cari') . '%');
+            })
+            ->whereNot('status_lulus', 0)
+            ->latest()
+            ->paginate();
+
+        return view('santri.santri-lulus', ['santri' => $santri]);
     }
 }
