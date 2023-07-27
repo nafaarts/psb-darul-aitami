@@ -31,32 +31,32 @@
             </div>
         </div>
     </div>
-
-    <div class="card p-3 mb-3 h-100">
-        <small class="text-muted mb-2">
-            Status Pendaftaran
-        </small>
-        <form action="{{ route('konfigurasi.update', ['type' => 'status-pendaftaran']) }}" method="POST">
-            @csrf
-            @method('PUT')
-            @if ($data['status-pendaftaran'])
-                <div class="d-flex align-items-center gap-2">
-                    <button type="submit" class="btn btn-sm btn-secondary px-4 text-white" style="width:fit-content">
-                        <i class="bi bi-x-circle-fill me-1"></i> Tutup Pendaftaran
-                    </button>
-                    <small class="text-muted">Pendaftaran Dibuka</small>
-                </div>
-            @else
-                <div class="d-flex align-items-center gap-2">
-                    <button type="submit" class="btn btn-sm btn-primary px-4 text-white" style="width:fit-content">
-                        <i class="bi bi-check-circle-fill me-1"></i> Buka Pendaftaran
-                    </button>
-                    <small class="text-muted">Pendaftaran Ditutup</small>
-                </div>
-            @endif
-        </form>
-    </div>
-
+    @can('admin')
+        <div class="card p-3 mb-3 h-100">
+            <small class="text-muted mb-2">
+                Status Pendaftaran
+            </small>
+            <form action="{{ route('konfigurasi.update', ['type' => 'status-pendaftaran']) }}" method="POST">
+                @csrf
+                @method('PUT')
+                @if ($data['status-pendaftaran'])
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="submit" class="btn btn-sm btn-secondary px-4 text-white" style="width:fit-content">
+                            <i class="bi bi-x-circle-fill me-1"></i> Tutup Pendaftaran
+                        </button>
+                        <small class="text-muted">Pendaftaran Dibuka</small>
+                    </div>
+                @else
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="submit" class="btn btn-sm btn-primary px-4 text-white" style="width:fit-content">
+                            <i class="bi bi-check-circle-fill me-1"></i> Buka Pendaftaran
+                        </button>
+                        <small class="text-muted">Pendaftaran Ditutup</small>
+                    </div>
+                @endif
+            </form>
+        </div>
+    @endcan
     <form action="{{ route('dashboard') }}" method="GET" class="input-group mb-3">
         <input type="text" class="form-control bg-white" placeholder="Cari Nama, No Daftar, NIK atau NISN" name="cari"
             value="{{ request('cari') }}">
@@ -74,6 +74,7 @@
                         <th scope="col">Status Bayar</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Status Lulus</th>
+                        <th scope="col">Nilai</th>
                         <th scope="col">Asal Sekolah</th>
                         <th scope="col">Jenis Kelamin</th>
                         <th scope="col">Orang Tua</th>
@@ -93,6 +94,7 @@
                             </td>
                             <td>{{ $item->user->nama }}</td>
                             <td>{{ $item->status_lulus ? 'LULUS' : '-' }}</td>
+                            <td><b>{{ $item->nilaiAverage() }}</b></td>
                             <td>{{ $item->pendidikan?->nama_sekolah }}</td>
                             <td>{{ $item->jenis_kelamin }}</td>
                             <td>{{ $item->orangTua?->nama_ayah ?? $item->orangTua?->nama_ibu }}</td>

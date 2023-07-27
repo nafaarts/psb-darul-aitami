@@ -51,5 +51,40 @@ class LoginController extends Controller
         if ($user->hak_akses == 'SANTRI') {
             return redirect(RouteServiceProvider::PROFIL);
         }
+
+        return redirect(RouteServiceProvider::DASHBOARD);
+    }
+
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function attemptLogin(Request $request)
+    {
+        return $this->guard()->attempt(
+            $this->credentials($request),
+            $request->boolean('remember')
+        );
+    }
+
+    /**
+     * Get the needed authorization credentials from the request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        $data = $request->only($this->username(), 'password');
+        if ($request->hak_akses == 'SANTRI') {
+            return [
+                ...$data,
+                'hak_akses' => 'SANTRI'
+            ];
+        }
+
+        return $data;
     }
 }

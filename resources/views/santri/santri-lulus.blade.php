@@ -24,6 +24,7 @@
                         <th scope="col">Status Bayar</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Status Lulus</th>
+                        <th scope="col">Nilai</th>
                         <th scope="col">Asal Sekolah</th>
                         <th scope="col">Jenis Kelamin</th>
                         <th scope="col">Orang Tua</th>
@@ -43,6 +44,7 @@
                             </td>
                             <td>{{ $item->user->nama }}</td>
                             <td>{{ $item->status_lulus ? 'LULUS' : '-' }}</td>
+                            <td><b>{{ $item->nilaiAverage() }}</b></td>
                             <td>{{ $item->pendidikan?->nama_sekolah }}</td>
                             <td>{{ $item->jenis_kelamin }}</td>
                             <td>{{ $item->orangTua?->nama_ayah ?? $item->orangTua?->nama_ibu }}</td>
@@ -61,7 +63,8 @@
                                             </button>
                                         @endif
                                     </form>
-                                    <a href="{{ route('santri.detail', $item) }}" class="btn btn-sm btn-warning text-white">
+                                    <a href="{{ route('santri.detail', $item) }}"
+                                        class="btn btn-sm btn-warning text-white">
                                         <i class="bi bi-eye-fill"></i> Lihat
                                     </a>
                                 </div>

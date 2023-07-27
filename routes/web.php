@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('beranda');
 })->name('beranda');
@@ -29,14 +31,14 @@ Route::get('/informasi', function () {
 
 Route::get('/cek-kelulusan', App\Http\Controllers\CekKelulusanController::class)->name('cek-kelulusan');
 
-Auth::routes();
-
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard')->middleware('can:admin-guru');
 
     Route::get('/santri-lulus', [App\Http\Controllers\DashboardController::class, 'santriLulus'])->name('santri.lulus');
 
     Route::get('/santri/{santri:no_daftar}/detail', [App\Http\Controllers\SantriController::class, 'detail'])->name('santri.detail')->middleware('can:admin-guru');
+
+    Route::post('/santri/{santri:no_daftar}/update-nilai', App\Http\Controllers\PenilaianController::class)->name('santri.penilaian')->middleware('can:admin-guru');
 
     Route::middleware('can:santri')->group(function () {
         Route::get('/pendaftaran', [App\Http\Controllers\PendaftaranController::class, 'pendaftaran'])->name('pendaftaran');
@@ -74,8 +76,13 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/edit-pengumuman', [App\Http\Controllers\KonfigurasiController::class, 'pengumuman'])->name('pengumuman.edit');
         Route::get('/edit-profil', [App\Http\Controllers\KonfigurasiController::class, 'profil'])->name('profil.edit');
+        Route::get('/edit-peringatan-pembayaran', [App\Http\Controllers\KonfigurasiController::class, 'peringatanPembayaran'])->name('peringatan-pembayaran.edit');
 
         Route::get('/remove-meta/{sitemeta}', [App\Http\Controllers\KonfigurasiController::class, 'removeMetaFile'])->name('remove.meta');
+
+        Route::resource('/kategori-nilai', \App\Http\Controllers\KategoriNilaiController::class)->except('show')->parameters([
+            'kategori-nilai' => 'kategori',
+        ]);
 
         Route::put('/konfigurasi', [App\Http\Controllers\KonfigurasiController::class, 'update'])->name('konfigurasi.update');
     });

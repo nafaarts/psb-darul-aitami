@@ -61,9 +61,11 @@
                         <a @class(['nav-link', 'active' => request()->routeIs('informasi')]) href="{{ route('informasi') }}">Informasi</a>
                     </li>
 
-                    <li class="nav-item">
-                        <a @class(['nav-link', 'active' => request()->routeIs('pendaftaran')]) href="{{ route('pendaftaran') }}">Formulir PSB</a>
-                    </li>
+                    @can('santri')
+                        <li class="nav-item">
+                            <a @class(['nav-link', 'active' => request()->routeIs('pendaftaran')]) href="{{ route('pendaftaran') }}">Formulir PSB</a>
+                        </li>
+                    @endcan
 
                     @auth
                         <li class="nav-item dropdown">
@@ -77,11 +79,13 @@
                                     <li>
                                         <a @class(['dropdown-item', 'active' => request()->routeIs('dashboard')]) href="{{ route('dashboard') }}">Dashboard</a>
                                     </li>
+                                @else
+                                    <li>
+                                        <a @class(['dropdown-item', 'active' => request()->routeIs('profil')]) href="{{ route('profil') }}">Profil</a>
+                                    </li>
                                 @endcanany
                                 {{-- // end admin and teacher --}}
-                                <li>
-                                    <a @class(['dropdown-item', 'active' => request()->routeIs('profil')]) href="{{ route('profil') }}">Profil</a>
-                                </li>
+
                                 <li>
                                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#modalLogout">Logout</a>
                                 </li>
@@ -106,14 +110,14 @@
     <footer class="border-top bg-light">
         <div class="container">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5">
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
                         <img src="{{ asset('logo.png') }}" height="50" alt="">
                     </a>
                     <p>&copy; {{ date('Y') }} Ponpes Darul Aitami</p>
                 </div>
 
-                <div class="col-md-4 mb-3">
+                <div class="col-md-3 mb-3">
                     <h5>Social Media</h5>
                     <ul class="list-unstyled d-flex gap-3">
                         <li>
@@ -133,9 +137,40 @@
                         </li>
                     </ul>
                 </div>
+                <div class="col-md-3 mb-3">
+                    <h5>Link</h5>
+                    <ul class="list-unstyled">
+                        <li class="nav-item">
+                            <a @class(['nav-link', 'active' => request()->routeIs('beranda')]) aria-current="page"
+                                href="{{ route('beranda') }}">Beranda</a>
+                        </li>
+                        <li class="nav-item">
+                            <a @class(['nav-link', 'active' => request()->routeIs('profil-pondok')]) href="{{ route('profil-pondok') }}">Profil Pondok</a>
+                        </li>
 
+                        <li class="nav-item">
+                            <a @class(['nav-link', 'active' => request()->routeIs('cek-kelulusan')]) href="{{ route('cek-kelulusan') }}">Cek Kelulusan</a>
+                        </li>
 
-                <div class="col-md-4 mb-3">
+                        <li class="nav-item">
+                            <a @class(['nav-link', 'active' => request()->routeIs('informasi')]) href="{{ route('informasi') }}">Informasi</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a @class(['nav-link', 'active' => request()->routeIs('pendaftaran')]) href="{{ route('pendaftaran') }}">Formulir PSB</a>
+                        </li>
+
+                        @guest
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('login', ['utils' => 'ADMIN']) }}">Administrator</a>
+                            </li>
+                        @endguest
+                    </ul>
+                </div>
+
+                {{-- {{ route('login') }} --}}
+
+                <div class="col-md-3 mb-3">
                     <h5>Alamat</h5>
                     <p>
                         Tapaktuan - Medan, KM. 21<br>

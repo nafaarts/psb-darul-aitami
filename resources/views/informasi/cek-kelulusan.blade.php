@@ -9,8 +9,8 @@
         <hr>
         <form action="{{ route('cek-kelulusan') }}" class="col-md-6">
             <div class="mb-3">
-                <label for="nik" class="form-label">Masukan NIK anda</label>
-                <input type="number" name="nik" id="nik" class="form-control" value="{{ request('nik') }}">
+                <label for="no_daftar" class="form-label">Masukan Nomor Pendaftaran anda</label>
+                <input type="number" name="no_daftar" id="no_daftar" class="form-control" value="{{ request('no_daftar') }}">
             </div>
             <div class="mb-3">
                 <label for="nisn" class="form-label">Masukan NISN anda</label>
@@ -18,11 +18,15 @@
             </div>
             <button class="btn btn-primary">Submit</button>
         </form>
-        @if (request()->has('nik') && request()->has('nisn'))
+        @if (request()->has('no_daftar') && request()->has('nisn'))
             <hr>
-            @if (!$status)
+            @if ($status == 3)
                 <div class="alert alert-warning" role="alert">
-                    Mohon maaf kamu belum lulus!.
+                    Data anda salah atau tidak ditemukan, mohon cek kembali data yang anda masukan.
+                </div>
+            @elseif($status == 2)
+                <div class="alert alert-danger" role="alert">
+                    Mohon maaf <strong>{{ $name ?? '-' }}</strong>, kamu belum lulus di Pondok Pesantren Darul Aitami.
                 </div>
             @else
                 <div class="alert alert-success" role="alert">

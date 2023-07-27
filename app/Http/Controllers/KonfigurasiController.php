@@ -38,6 +38,13 @@ class KonfigurasiController extends Controller
         return view('admin.profil', compact('profil', 'profil_image', 'profil_file'));
     }
 
+    public function peringatanPembayaran()
+    {
+        $peringatan_pembayaran = SiteMeta::where('name', 'peringatan_pembayaran')->first()?->value;
+
+        return view('admin.peringatan-pembayaran', compact('peringatan_pembayaran'));
+    }
+
     public function update(Request $request)
     {
 
@@ -108,6 +115,18 @@ class KonfigurasiController extends Controller
                 }
 
                 $message = 'Profil berhasil diubah.';
+                break;
+
+            case 'peringatan_pembayaran':
+                $request->validate([
+                    'peringatan_pembayaran' => 'required',
+                ]);
+
+                SiteMeta::updateOrCreate(['name' => 'peringatan_pembayaran'], [
+                    'value' => $request->peringatan_pembayaran
+                ]);
+
+                $message = 'peringatan pembayaran berhasil diubah.';
                 break;
 
             default:

@@ -176,7 +176,7 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <small class="form-label" for="desa">Desa</small>
@@ -219,7 +219,7 @@
                                             <small class="text-danger">{{ $message }}</small>
                                         @enderror
                                     </div>
-                                </div> --}}
+                                </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <small class="form-label" for="no_hp">Nomor Handphone</small>

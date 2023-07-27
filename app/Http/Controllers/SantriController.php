@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KategoriNilai;
 use App\Models\Prestasi;
 use App\Models\RiwayatPenyakit;
 use App\Models\Santri;
@@ -11,7 +12,20 @@ class SantriController extends Controller
 {
     public function detail(Santri $santri)
     {
-        return view('santri.detail', compact('santri'));
+        $kategoriNilai = KategoriNilai::all()
+            ->map(function ($kategori) use ($santri) {
+                $dataNilai = $santri->nilai()->where('kategori_nilai_id', $kategori->id)->first();
+                return [
+                    ...$kategori->only([
+                        'nama_pelajaran',
+                        'slug',
+                        'kategori',
+                    ]),
+                    'nilai' => $dataNilai->nilai ?? 0
+                ];
+            })->groupBy('kategori');
+
+        return view('santri.detail', compact('santri', 'kategoriNilai'));
     }
 
     public function toggleLulus(Santri $santri)
@@ -100,10 +114,10 @@ class SantriController extends Controller
             'agama' => 'required',
             'alamat' => 'required',
             // 'jalan' => 'required',
-            // 'desa' => 'required',
-            // 'kecamatan' => 'required',
-            // 'kabupaten' => 'required',
-            // 'provinsi' => 'required',
+            'desa' => 'required',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+            'provinsi' => 'required',
             'no_hp' => 'required|numeric',
             'pekerjaan_ayah' => 'required',
             'pekerjaan_ibu' => 'required',
@@ -118,10 +132,10 @@ class SantriController extends Controller
             'agama' => $request->agama,
             'alamat' => $request->alamat,
             // 'jalan' => $request->jalan,
-            // 'desa' => $request->desa,
-            // 'kecamatan' => $request->kecamatan,
-            // 'kabupaten' => $request->kabupaten,
-            // 'provinsi' => $request->provinsi,
+            'desa' => $request->desa,
+            'kecamatan' => $request->kecamatan,
+            'kabupaten' => $request->kabupaten,
+            'provinsi' => $request->provinsi,
             'no_hp' => $request->no_hp,
             'pekerjaan_ayah' => $request->pekerjaan_ayah,
             'pekerjaan_ibu' => $request->pekerjaan_ibu,

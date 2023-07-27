@@ -151,7 +151,7 @@
                 </div> --}}
 
                 {{-- // start here! --}}
-                {{-- <div class="col-md-6">
+                <div class="col-md-6">
                     <div class="mb-3">
                         <small class="form-label" for="provinsi">Provinsi</small>
                         <select class="form-select form-select-sm" id="provinsi" name="provinsi"
@@ -203,7 +203,7 @@
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>
-                </div> --}}
+                </div>
 
                 {{-- // end here --}}
             </div>
@@ -219,136 +219,136 @@
         </form>
     </div>
 
-    {{-- <script>
-        // const selectProvinsi = document.getElementById('provinsi')
-        // const selectKabupaten = document.getElementById('kabupaten')
-        // const selectKecamatan = document.getElementById('kecamatan')
-        // const selectDesa = document.getElementById('desa')
+    <script>
+        const selectProvinsi = document.getElementById('provinsi')
+        const selectKabupaten = document.getElementById('kabupaten')
+        const selectKecamatan = document.getElementById('kecamatan')
+        const selectDesa = document.getElementById('desa')
 
-        // {{ old('provinsi', $orangTua?->provinsi) }}
-        // {{ old('kabupaten', $orangTua?->kabupaten) }}
-        // {{ old('kecamatan', $orangTua?->kecamatan) }}
-        // {{ old('desa', $orangTua?->desa) }}
+        {{ old('provinsi', $orangTua?->provinsi) }}
+        {{ old('kabupaten', $orangTua?->kabupaten) }}
+        {{ old('kecamatan', $orangTua?->kecamatan) }}
+        {{ old('desa', $orangTua?->desa) }}
 
-        // const removeChildren = (parent) => {
-        //     while (parent.firstChild) {
-        //         parent.removeChild(parent.firstChild)
-        //     }
-        // }
+        const removeChildren = (parent) => {
+            while (parent.firstChild) {
+                parent.removeChild(parent.firstChild)
+            }
+        }
 
-        // function getDesa(old = null) {
-        //     let _id = selectKecamatan.options[selectKecamatan.selectedIndex].dataset.id;
+        function getDesa(old = null) {
+            let _id = selectKecamatan.options[selectKecamatan.selectedIndex].dataset.id;
 
-        //     const url =
-        //         `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${_id}`;
+            const url =
+                `https://dev.farizdotid.com/api/daerahindonesia/kelurahan?id_kecamatan=${_id}`;
 
-        //     fetch(url)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             let oldKelurahan = "{{ old('desa', $orangTua?->desa) }}" || null;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let oldKelurahan = "{{ old('desa', $orangTua?->desa) }}" || null;
 
-        //             removeChildren(selectDesa)
-        //             data?.kelurahan.forEach(item => {
-        //                 const option = document.createElement('option')
-        //                 option.dataset.id = item.id
-        //                 option.text = item.nama
+                    removeChildren(selectDesa)
+                    data?.kelurahan.forEach(item => {
+                        const option = document.createElement('option')
+                        option.dataset.id = item.id
+                        option.text = item.nama
 
-        //                 if (item.nama === oldKelurahan) {
-        //                     option.selected = true
-        //                 }
+                        if (item.nama === oldKelurahan) {
+                            option.selected = true
+                        }
 
-        //                 selectDesa.append(option)
-        //             });
-        //         })
-        //         .catch(error => console.error(error))
-        // }
+                        selectDesa.append(option)
+                    });
+                })
+                .catch(error => console.error(error))
+        }
 
-        // function getKecamatan(old = null) {
-        //     let _id = selectKabupaten.options[selectKabupaten.selectedIndex].dataset.id;
+        function getKecamatan(old = null) {
+            let _id = selectKabupaten.options[selectKabupaten.selectedIndex].dataset.id;
 
-        //     const url = `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${_id}`;
+            const url = `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${_id}`;
 
-        //     fetch(url)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             let oldKecamatan = "{{ old('kecamatan', $orangTua?->kecamatan) }}" || null;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let oldKecamatan = "{{ old('kecamatan', $orangTua?->kecamatan) }}" || null;
 
-        //             removeChildren(selectKecamatan)
-        //             data?.kecamatan.forEach(item => {
-        //                 const option = document.createElement('option')
-        //                 option.dataset.id = item.id
-        //                 option.text = item.nama
+                    removeChildren(selectKecamatan)
+                    data?.kecamatan.forEach(item => {
+                        const option = document.createElement('option')
+                        option.dataset.id = item.id
+                        option.text = item.nama
 
-        //                 if (item.nama === oldKecamatan) {
-        //                     option.selected = true
-        //                 }
+                        if (item.nama === oldKecamatan) {
+                            option.selected = true
+                        }
 
-        //                 selectKecamatan.append(option)
-        //             });
+                        selectKecamatan.append(option)
+                    });
 
-        //             if (oldKecamatan) {
-        //                 getDesa()
-        //             }
-        //         })
-        //         .catch(error => console.error(error))
-        // }
+                    if (oldKecamatan) {
+                        getDesa()
+                    }
+                })
+                .catch(error => console.error(error))
+        }
 
-        // function getKabupaten() {
-        //     let _id = selectProvinsi.options[selectProvinsi.selectedIndex].dataset.id;
+        function getKabupaten() {
+            let _id = selectProvinsi.options[selectProvinsi.selectedIndex].dataset.id;
 
-        //     const url = `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${_id}`;
+            const url = `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${_id}`;
 
-        //     fetch(url)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             let oldKabupaten = "{{ old('kabupaten', $orangTua?->kabupaten) }}" || null;
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let oldKabupaten = "{{ old('kabupaten', $orangTua?->kabupaten) }}" || null;
 
-        //             removeChildren(selectKabupaten)
-        //             data?.kota_kabupaten.forEach(item => {
-        //                 const option = document.createElement('option')
-        //                 option.dataset.id = item.id
-        //                 option.text = item.nama
+                    removeChildren(selectKabupaten)
+                    data?.kota_kabupaten.forEach(item => {
+                        const option = document.createElement('option')
+                        option.dataset.id = item.id
+                        option.text = item.nama
 
-        //                 if (item.nama === oldKabupaten) {
-        //                     option.selected = true
-        //                 }
+                        if (item.nama === oldKabupaten) {
+                            option.selected = true
+                        }
 
-        //                 selectKabupaten.append(option)
-        //             });
+                        selectKabupaten.append(option)
+                    });
 
-        //             if (oldKabupaten) {
-        //                 getKecamatan()
-        //             }
-        //         })
-        //         .catch(error => console.error(error))
-        // }
+                    if (oldKabupaten) {
+                        getKecamatan()
+                    }
+                })
+                .catch(error => console.error(error))
+        }
 
-        // function getProvinsi() {
-        //     const url = "https://dev.farizdotid.com/api/daerahindonesia/provinsi";
-        //     fetch(url)
-        //         .then(response => response.json())
-        //         .then(data => {
-        //             let oldProvinsi = "{{ old('provinsi', $orangTua?->provinsi) }}" || null;
+        function getProvinsi() {
+            const url = "https://dev.farizdotid.com/api/daerahindonesia/provinsi";
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    let oldProvinsi = "{{ old('provinsi', $orangTua?->provinsi) }}" || null;
 
-        //             data?.provinsi.forEach(item => {
-        //                 const option = document.createElement('option')
-        //                 option.dataset.id = item.id
-        //                 option.text = item.nama
+                    data?.provinsi.forEach(item => {
+                        const option = document.createElement('option')
+                        option.dataset.id = item.id
+                        option.text = item.nama
 
-        //                 if (item.nama === oldProvinsi) {
-        //                     option.selected = true
-        //                 }
+                        if (item.nama === oldProvinsi) {
+                            option.selected = true
+                        }
 
-        //                 selectProvinsi.append(option)
-        //             });
+                        selectProvinsi.append(option)
+                    });
 
-        //             if (oldProvinsi) {
-        //                 getKabupaten()
-        //             }
-        //         })
-        //         .catch(error => console.error(error))
-        // }
+                    if (oldProvinsi) {
+                        getKabupaten()
+                    }
+                })
+                .catch(error => console.error(error))
+        }
 
-        // getProvinsi()
-    </script> --}}
+        getProvinsi()
+    </script>
 @endsection

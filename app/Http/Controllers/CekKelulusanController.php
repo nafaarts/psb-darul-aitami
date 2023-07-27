@@ -14,19 +14,21 @@ class CekKelulusanController extends Controller
     {
         $status = false;
 
-        $name = Santri::where([
+        $santri = Santri::where([
             'nisn' => request('nisn'),
-            'nik' => request('nik'),
-            'status_lulus' => 1
-        ])->first()?->user->nama;
+            'no_daftar' => request('no_daftar'),
+        ])->first();
 
-        if ($name) {
-            $status = true;
+        // status : 1 - lulus | 2 - tidak lulus | 3 - data tidak ditemukan
+        if ($santri) {
+            $status = $santri->status_lulus ? 1 : 2;
+        } else {
+            $status = 3;
         }
 
         return view('informasi.cek-kelulusan', [
             'status' => $status,
-            'name' => $name
+            'name' => $santri?->user?->nama
         ]);
     }
 }

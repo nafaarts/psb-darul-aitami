@@ -56,4 +56,16 @@ class Santri extends Model
     {
         return $this->hasMany(RiwayatPenyakit::class);
     }
+
+    public function nilai()
+    {
+        return $this->hasMany(Nilai::class, 'santri_id');
+    }
+
+    public function nilaiAverage()
+    {
+        return $this->nilai->reduce(function ($total, $item) {
+            return $total + $item?->nilai;
+        }) / $this->nilai->count();
+    }
 }

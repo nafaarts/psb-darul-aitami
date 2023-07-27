@@ -66,6 +66,11 @@
                                 <td>{{ $santri->pendidikan?->nama_sekolah }}</td>
                             </tr>
                             <tr>
+                                <th>NPSN Sekolah</th>
+                                <td class="px-2">:</td>
+                                <td>{{ $santri->pendidikan?->npsn_sekolah }}</td>
+                            </tr>
+                            {{-- <tr>
                                 <th>Riwayat Penyakit</th>
                                 <td class="px-2">:</td>
                                 <td>
@@ -78,8 +83,8 @@
                                         </a>
                                     </div>
                                 </td>
-                            </tr>
-                            <tr>
+                            </tr> --}}
+                            {{-- <tr>
                                 <th>Prestasi</th>
                                 <td class="px-2">:</td>
                                 <td>
@@ -92,7 +97,7 @@
                                         </a>
                                     </div>
                                 </td>
-                            </tr>
+                            </tr> --}}
                         </table>
                     </div>
                 </div>
@@ -115,11 +120,17 @@
             <div class="alert alert-danger" role="alert">
                 <i class="bi bi-exclamation-triangle-fill"></i> <strong>Maaf, Anda belum membayar biaya pendaftaran!</strong>
                 <hr>
-                Silahkan transfer sebesar <strong>Rp. 20.000</strong> ke rekening <strong>Bank Aceh
+                @php
+                    $peringatan_pembayaran = App\Models\SiteMeta::where('name', 'peringatan_pembayaran')->first()?->value;
+                @endphp
+                <div class="mb-3">
+                    {!! $peringatan_pembayaran ?? '-' !!}
+                </div>
+                {{-- Silahkan transfer sebesar <strong>Rp. 20.000</strong> ke rekening <strong>Bank Aceh
                     12412.123.4123 a/n
                     Yayasan Darul Aitami</strong> dan konfirmasi dengan mengupload pada form dibawah dan mengirimkan bukti
                 transfer melalui whatsapp
-                <strong>+62832912392 (Muhajjir)</strong>
+                <strong>+62832912392 (Muhajjir)</strong> --}}
             </div>
 
             <div class="card p-3 mb-3">
@@ -147,7 +158,7 @@
 
     @endcan
 
-    <div class="card p-3">
+    {{-- <div class="card p-3">
         <h5 class="m-0">Profil</h5>
         <hr>
         <form action="{{ route('profil.update') }}" method="POST">
@@ -189,7 +200,7 @@
                 <button type="reset" class="btn btn-sm btn-secondary">Reset</button>
                 <button type="submit" class="btn btn-sm btn-primary">Submit</button>
             </div>
-        </form>
+        </form> --}}
     </div>
 
 @endsection
