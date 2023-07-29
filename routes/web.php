@@ -40,6 +40,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/santri/{santri:no_daftar}/update-nilai', App\Http\Controllers\PenilaianController::class)->name('santri.penilaian')->middleware('can:admin-guru');
 
+    Route::put('/konfigurasi', [App\Http\Controllers\KonfigurasiController::class, 'update'])->name('konfigurasi.update')->middleware('can:admin-guru');
+
     Route::middleware('can:santri')->group(function () {
         Route::get('/pendaftaran', [App\Http\Controllers\PendaftaranController::class, 'pendaftaran'])->name('pendaftaran');
         Route::post('/pendaftaran', [App\Http\Controllers\PendaftaranController::class, 'store'])->name('pendaftaran.store');
@@ -83,9 +85,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('/kategori-nilai', \App\Http\Controllers\KategoriNilaiController::class)->except('show')->parameters([
             'kategori-nilai' => 'kategori',
         ]);
-
-        Route::put('/konfigurasi', [App\Http\Controllers\KonfigurasiController::class, 'update'])->name('konfigurasi.update');
     });
+
+
 
     Route::get('/profil', [App\Http\Controllers\ProfilController::class, 'index'])->name('profil');
     Route::put('/profil', [App\Http\Controllers\ProfilController::class, 'update'])->name('profil.update');

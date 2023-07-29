@@ -19,9 +19,11 @@
                 <i class="bi bi-arrow-left"></i> Kembali
             </a>
             <div class="d-flex gap-2">
-                <button class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#inputNilai">
-                    <i class="bi bi-file-earmark-ruled-fill"></i> Input Nilai
-                </button>
+                @can('guru')
+                    <button class="btn btn-sm btn-primary text-white" data-bs-toggle="modal" data-bs-target="#inputNilai">
+                        <i class="bi bi-file-earmark-ruled-fill"></i> Input Nilai
+                    </button>
+                @endcan
 
                 @can('admin')
                     <form action="{{ route('santri.toggle-lulus', $santri) }}" method="POST">

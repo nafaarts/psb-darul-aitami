@@ -70,6 +70,7 @@
                                 <td class="px-2">:</td>
                                 <td>{{ $santri->pendidikan?->npsn_sekolah }}</td>
                             </tr>
+
                             {{-- <tr>
                                 <th>Riwayat Penyakit</th>
                                 <td class="px-2">:</td>
@@ -98,6 +99,7 @@
                                     </div>
                                 </td>
                             </tr> --}}
+
                         </table>
                     </div>
                 </div>
@@ -123,7 +125,7 @@
                 @php
                     $peringatan_pembayaran = App\Models\SiteMeta::where('name', 'peringatan_pembayaran')->first()?->value;
                 @endphp
-                <div class="mb-3">
+                <div style="font-size: 14px">
                     {!! $peringatan_pembayaran ?? '-' !!}
                 </div>
                 {{-- Silahkan transfer sebesar <strong>Rp. 20.000</strong> ke rekening <strong>Bank Aceh

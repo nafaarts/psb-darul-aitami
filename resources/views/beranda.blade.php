@@ -65,7 +65,13 @@
         <h2>PENDAFTARAN SANTRI BARU</h2>
         <h5 class="text-muted">Tahun Ajaran {{ date('Y') }}/{{ date('Y') + 1 }}</h5>
         <hr class="w-25 mx-auto">
-        <a href="{{ route('pendaftaran') }}" class="btn btn-primary mx-auto" style="width: fit-content">
+
+        @php
+            $status = App\Models\SiteMeta::where('name', 'status-pendaftaran')->first()?->value;
+        @endphp
+
+        <a @if ($status) href="{{ route('pendaftaran') }}" @else href="javascript:alert('Maaf pendaftaran sudah ditutup!')" @endif
+            class="btn btn-primary mx-auto" style="width: fit-content">
             Daftar Sekarang
         </a>
     </section>

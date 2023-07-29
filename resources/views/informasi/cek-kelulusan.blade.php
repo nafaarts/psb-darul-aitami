@@ -10,7 +10,7 @@
         <form action="{{ route('cek-kelulusan') }}" class="col-md-6">
             <div class="mb-3">
                 <label for="no_daftar" class="form-label">Masukan Nomor Pendaftaran anda</label>
-                <input type="number" name="no_daftar" id="no_daftar" class="form-control" value="{{ request('no_daftar') }}">
+                <input type="text" name="no_daftar" id="no_daftar" class="form-control" value="{{ request('no_daftar') }}">
             </div>
             <div class="mb-3">
                 <label for="nisn" class="form-label">Masukan NISN anda</label>

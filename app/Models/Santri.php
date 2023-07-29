@@ -64,9 +64,11 @@ class Santri extends Model
 
     public function nilaiAverage()
     {
-	if ($this->nilai->count() == 0) return 0;
+        if ($this->nilai->count() == 0) {
+            return 0;
+        }
 
-	return $this->nilai->reduce(function ($total, $item) {
+        return $this->nilai->reduce(function ($total, $item) {
             return $total + $item?->nilai;
         }) / $this->nilai->count();
     }

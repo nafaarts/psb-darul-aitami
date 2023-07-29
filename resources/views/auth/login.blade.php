@@ -63,10 +63,17 @@
                                     <button type="submit" class="btn btn-primary">
                                         Masuk
                                     </button>
-                                    @if (request('utils') != 'ADMIN')
-                                        <a href="{{ route('register') }}" class="btn btn-secondary">
-                                            Daftar
-                                        </a>
+
+                                    @php
+                                        $status = App\Models\SiteMeta::where('name', 'status-pendaftaran')->first()?->value;
+                                    @endphp
+
+                                    @if ($status)
+                                        @if (request('utils') != 'ADMIN')
+                                            <a href="{{ route('register') }}" class="btn btn-secondary">
+                                                Daftar
+                                            </a>
+                                        @endif
                                     @endif
 
                                     @if (Route::has('password.request'))

@@ -140,7 +140,7 @@
                 <div class="col-md-3 mb-3">
                     <h5>Link</h5>
                     <ul class="list-unstyled">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a @class(['nav-link', 'active' => request()->routeIs('beranda')]) aria-current="page"
                                 href="{{ route('beranda') }}">Beranda</a>
                         </li>
@@ -158,13 +158,11 @@
 
                         <li class="nav-item">
                             <a @class(['nav-link', 'active' => request()->routeIs('pendaftaran')]) href="{{ route('pendaftaran') }}">Formulir PSB</a>
-                        </li>
+                        </li> --}}
 
-                        @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login', ['utils' => 'ADMIN']) }}">Administrator</a>
-                            </li>
-                        @endguest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login', ['utils' => 'ADMIN']) }}">Administrator</a>
+                        </li>
                     </ul>
                 </div>
 
