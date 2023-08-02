@@ -61,6 +61,9 @@ Route::middleware('auth')->group(function () {
         Route::resource('/users', App\Http\Controllers\UserController::class)->except('show');
 
         Route::put('/santri/{santri}/toggle-lulus', [App\Http\Controllers\SantriController::class, 'toggleLulus'])->name('santri.toggle-lulus');
+
+        Route::put('/santri/{santri}/toggle-daftar-ulang', [App\Http\Controllers\SantriController::class, 'toggleDaftarUlang'])->name('santri.toggle-daftar-ulang');
+
         Route::put('/santri/{santri}/konfirmasi-pembayaran', [App\Http\Controllers\SantriController::class, 'konfirmasiPembayaran'])->name('santri.konfirmasi-pembayaran');
 
         Route::get('/santri/{santri}/edit', [App\Http\Controllers\SantriController::class, 'edit'])->name('santri.edit');

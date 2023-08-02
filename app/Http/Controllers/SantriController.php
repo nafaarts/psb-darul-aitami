@@ -37,6 +37,15 @@ class SantriController extends Controller
         return back();
     }
 
+    public function toggleDaftarUlang(Santri $santri)
+    {
+        $santri->update([
+            'status_daftar_ulang' => !$santri->status_daftar_ulang
+        ]);
+
+        return back();
+    }
+
     public function konfirmasiPembayaran(Santri $santri)
     {
         $santri->update([

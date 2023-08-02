@@ -23,7 +23,7 @@
                         <th scope="col">No Daftar</th>
                         <th scope="col">Status Bayar</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Status Lulus</th>
+                        <th scope="col">Status Daftar Ulang</th>
                         <th scope="col">Nilai</th>
                         <th scope="col">Asal Sekolah</th>
                         <th scope="col">Jenis Kelamin</th>
@@ -43,23 +43,23 @@
                                 @endif
                             </td>
                             <td>{{ $item->user->nama }}</td>
-                            <td>{{ $item->status_lulus ? 'LULUS' : '-' }}</td>
+                            <td>{{ $item->status_daftar_ulang ? 'SUDAH' : 'BELUM' }}</td>
                             <td><b>{{ $item->nilaiAverage() }}</b></td>
                             <td>{{ $item->pendidikan?->nama_sekolah }}</td>
                             <td>{{ $item->jenis_kelamin }}</td>
                             <td>{{ $item->orangTua?->nama_ayah ?? $item->orangTua?->nama_ibu }}</td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <form action="{{ route('santri.toggle-lulus', $item) }}" method="POST">
+                                    <form action="{{ route('santri.toggle-daftar-ulang', $item) }}" method="POST">
                                         @csrf
                                         @method('PUT')
-                                        @if ($item->status_lulus)
+                                        @if ($item->status_daftar_ulang)
                                             <button class="btn btn-sm btn-success">
-                                                <i class="bi bi-check-circle-fill"></i> Lulus
+                                                <i class="bi bi-check-circle-fill"></i> Daftar Ulang
                                             </button>
                                         @else
                                             <button class="btn btn-sm btn-secondary">
-                                                <i class="bi bi-x-circle-fill"></i> Lulus
+                                                <i class="bi bi-x-circle-fill"></i> Daftar Ulang
                                             </button>
                                         @endif
                                     </form>
