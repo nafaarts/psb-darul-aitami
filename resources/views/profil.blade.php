@@ -15,7 +15,8 @@
                 <i class="bi bi-emoji-laughing-fill"></i>
                 <strong>Selamat, Anda lulus menjadi santri di pondok pesantren Darul Aitami.</strong>
                 <br>
-                <span>Silahkan mendaftar ulang pada tanggal 12 Juli 2023 sampai dengan 15 Juli 2023 di pondok pesantren Darul
+                <span>Silahkan kirimkan bukti pembayaran uang pangkal dan mendaftar ulang pada tanggal 12 Juli 2023 sampai
+                    dengan 15 Juli 2023 di pondok pesantren Darul
                     Aitami</span>
             </div>
         @endif
@@ -152,6 +153,29 @@
                             <a href="{{ asset('storage/bukti_pembayaran/' . $santri->bukti_pembayaran) }}"
                                 target="_blank">Lihat
                                 Bukti Pembayaran</a>
+                        @endif
+                    </div>
+                </form>
+            </div>
+        @endif
+
+        @if (!$santri?->status_daftar_ulang && $lengkapMendaftar)
+            <div class="card p-3 mb-3">
+                <form action="{{ route('upload-bukti-uang-pangkal') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="bukti_uang_pangkal" class="form-label">Bukti Pembayaran Uang Pangkal</label>
+                        <input type="file" class="form-control" name="bukti_uang_pangkal" id="bukti_uang_pangkal">
+                        @error('bukti_uang_pangkal')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                        <small class="text-muted">FORMAT JPG,JPEG,PNG. MAX: 2 MB</small>
+                    </div>
+                    <div class="d-flex align-items-center gap-3">
+                        <button class="btn btn-primary">Kirim</button>
+                        @if ($santri->bukti_uang_pangkal)
+                            <a href="{{ asset('storage/bukti_uang_pangkal/' . $santri->bukti_uang_pangkal) }}" target="_blank">
+                                Lihat Bukti Pembayaran Uang Pangkal</a>
                         @endif
                     </div>
                 </form>

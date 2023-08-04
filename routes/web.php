@@ -54,6 +54,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/upload-bukti-pembayaran', App\Http\Controllers\UploadBuktiPembayaranController::class)->name('upload-bukti-pembayaran');
 
+        Route::post('/upload-bukti-uang-pangkal', App\Http\Controllers\UploadBuktiDaftarUlangController::class)->name('upload-bukti-uang-pangkal');
+
         Route::get('/pendaftaran/kartu-ujian', KartuUjianController::class)->name('pendaftaran.kartu-ujian');
     });
 

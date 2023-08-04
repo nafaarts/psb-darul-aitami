@@ -30,6 +30,7 @@ class Santri extends Model
         'bukti_pembayaran',
         'status_lulus',
         'status_daftar_ulang',
+        'bukti_uang_pangkal',
         'foto'
     ];
 

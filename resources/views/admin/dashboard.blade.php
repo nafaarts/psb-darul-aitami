@@ -101,19 +101,21 @@
                             <td>{{ $item->orangTua?->nama_ayah ?? $item->orangTua?->nama_ibu }}</td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <form action="{{ route('santri.toggle-lulus', $item) }}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        @if ($item->status_lulus)
-                                            <button class="btn btn-sm btn-success">
-                                                <i class="bi bi-check-circle-fill"></i> Lulus
-                                            </button>
-                                        @else
-                                            <button class="btn btn-sm btn-secondary">
-                                                <i class="bi bi-x-circle-fill"></i> Lulus
-                                            </button>
-                                        @endif
-                                    </form>
+                                    @can('admin')
+                                        <form action="{{ route('santri.toggle-lulus', $item) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            @if ($item->status_lulus)
+                                                <button class="btn btn-sm btn-success">
+                                                    <i class="bi bi-check-circle-fill"></i> Lulus
+                                                </button>
+                                            @else
+                                                <button class="btn btn-sm btn-secondary">
+                                                    <i class="bi bi-x-circle-fill"></i> Lulus
+                                                </button>
+                                            @endif
+                                        </form>
+                                    @endcan
                                     <a href="{{ route('santri.detail', $item) }}"
                                         class="btn btn-sm btn-warning text-white">
                                         <i class="bi bi-eye-fill"></i> Lihat

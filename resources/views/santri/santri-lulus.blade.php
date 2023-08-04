@@ -50,7 +50,7 @@
                             <td>{{ $item->orangTua?->nama_ayah ?? $item->orangTua?->nama_ibu }}</td>
                             <td>
                                 <div class="d-flex gap-2">
-                                    <form action="{{ route('santri.toggle-daftar-ulang', $item) }}" method="POST">
+                                    {{-- <form action="{{ route('santri.toggle-daftar-ulang', $item) }}" method="POST">
                                         @csrf
                                         @method('PUT')
                                         @if ($item->status_daftar_ulang)
@@ -62,9 +62,8 @@
                                                 <i class="bi bi-x-circle-fill"></i> Daftar Ulang
                                             </button>
                                         @endif
-                                    </form>
-                                    <a href="{{ route('santri.detail', $item) }}"
-                                        class="btn btn-sm btn-warning text-white">
+                                    </form> --}}
+                                    <a href="{{ route('santri.detail', $item) }}" class="btn btn-sm btn-warning text-white">
                                         <i class="bi bi-eye-fill"></i> Lihat
                                     </a>
                                 </div>

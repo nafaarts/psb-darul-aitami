@@ -92,6 +92,11 @@
                                     <td>{{ $santri->user->email }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Status Kelulusan</th>
+                                    <td class="px-2">:</td>
+                                    <td>{{ $santri->status_lulus ? 'LULUS' : '-' }}</td>
+                                </tr>
+                                <tr>
                                     <th>Status Pembayaran</th>
                                     <td class="px-2">:</td>
                                     <td>
@@ -117,9 +122,31 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Status Kelulusan</th>
+                                    <th>Status Daftar Ulang</th>
                                     <td class="px-2">:</td>
-                                    <td>{{ $santri->status_lulus ? 'LULUS' : '-' }}</td>
+                                    <td>
+                                        @if ($santri->status_daftar_ulang)
+                                            <span class="badge bg-success"><i class="bi bi-check-circle-fill"></i>
+                                                Sudah Mendaftar Ulang
+                                            </span>
+                                        @else
+                                            <span class="badge bg-warning"><i class="bi bi-exclamation-triangle-fill"></i>
+                                                Belum Mendaftar Ulang
+                                            </span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Bukti Daftar Ulang</th>
+                                    <td class="px-2">:</td>
+                                    <td>
+                                        @if ($santri->bukti_uang_pangkal)
+                                            <a href="{{ asset('storage/bukti_uang_pangkal/' . $santri->bukti_uang_pangkal) }}"
+                                                target="_blank">
+                                                Lihat Bukti Daftar Ulang
+                                            </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             </table>
                         </div>
