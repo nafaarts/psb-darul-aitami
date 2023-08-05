@@ -21,6 +21,16 @@
             </div>
         @endif
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <div class="card p-3 mb-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h5 class="m-0">Pendaftaran Santri Baru</h5>
@@ -36,6 +46,23 @@
                     </div>
                     <div class="table-responsive">
                         <table>
+                            @if ($santri->status_lulus)
+                                <tr>
+                                    <th>Status Daftar Ulang</th>
+                                    <td class="px-2">:</td>
+                                    <td>
+                                        @if ($santri->status_daftar_ulang)
+                                            <span class="badge bg-success"><i class="bi bi-check-circle-fill"></i>
+                                                Sudah Mendaftar Ulang
+                                            </span>
+                                        @else
+                                            <span class="badge bg-warning"><i class="bi bi-exclamation-triangle-fill"></i>
+                                                Belum Mendaftar Ulang
+                                            </span>
+                                        @endif
+                                    </td>
+                                </tr>
+                            @endif
                             <tr>
                                 <th>Nama Santri</th>
                                 <td class="px-2">:</td>
@@ -106,10 +133,19 @@
                 </div>
                 <hr>
                 @if ($santri?->status_pembayaran)
-                    <a href="{{ route('pendaftaran.kartu-ujian') }}" class="btn btn-sm btn-primary text-white"
-                        style="width: fit-content">
-                        <i class="bi bi-file-earmark-arrow-down"></i> Download Kartu Ujian
-                    </a>
+                    <div class="d-flex gap-2">
+                        <a href="{{ route('pendaftaran.kartu-ujian') }}" class="btn btn-sm btn-primary text-white"
+                            style="width: fit-content">
+                            <i class="bi bi-file-earmark-arrow-down"></i> Download Kartu Ujian
+                        </a>
+
+                        @if (!$santri?->status_daftar_ulang)
+                            <button type="button" class="btn btn-sm btn-primary text-white" data-bs-toggle="modal"
+                                data-bs-target="#modalDaftarUlang">
+                                Daftar Ulang
+                            </button>
+                        @endif
+                    </div>
                 @endif
             @else
                 <p>Pendaftaran Santri Baru Pondok Pesantren Darul Aitami.</p>
@@ -159,26 +195,97 @@
             </div>
         @endif
 
-        @if (!$santri?->status_daftar_ulang && $lengkapMendaftar)
-            <div class="card p-3 mb-3">
-                <form action="{{ route('upload-bukti-uang-pangkal') }}" method="post" enctype="multipart/form-data">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="bukti_uang_pangkal" class="form-label">Bukti Pembayaran Uang Pangkal</label>
-                        <input type="file" class="form-control" name="bukti_uang_pangkal" id="bukti_uang_pangkal">
-                        @error('bukti_uang_pangkal')
-                            <small class="text-danger">{{ $message }}</small>
-                        @enderror
-                        <small class="text-muted">FORMAT JPG,JPEG,PNG. MAX: 2 MB</small>
+        <!-- Modal -->
+        @if (!$santri?->status_daftar_ulang)
+            <div class="modal fade" id="modalDaftarUlang" tabindex="-1" aria-labelledby="modalDaftarUlangLabel"
+                aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalDaftarUlangLabel">Daftar Ulang</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('upload-bukti-uang-pangkal') }}" method="post"
+                                enctype="multipart/form-data" id="form-daftar-ulang">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="ijazah" class="form-label">Upload Ijazah</label>
+                                    <input type="file" accept=".pdf" class="form-control" name="ijazah" id="ijazah">
+                                    @error('ijazah')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        <br>
+                                    @enderror
+                                    <small class="text-muted">
+                                        <span>FORMAT PDF. MAX: 3 MB - </span>
+                                        @if ($santri->ijazah)
+                                            <a href="{{ asset('storage/ijazah/' . $santri->ijazah) }}" target="_blank">
+                                                Lihat Ijazah</a>
+                                        @endif
+                                    </small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="kartu_keluarga" class="form-label">Upload Kartu Keluarga</label>
+                                    <input type="file" accept=".pdf" class="form-control" name="kartu_keluarga"
+                                        id="kartu_keluarga">
+                                    @error('kartu_keluarga')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        <br>
+                                    @enderror
+                                    <small class="text-muted">
+                                        <span>FORMAT PDF. MAX: 3 MB - </span>
+                                        @if ($santri->kartu_keluarga)
+                                            <a href="{{ asset('storage/kartu_keluarga/' . $santri->kartu_keluarga) }}"
+                                                target="_blank">
+                                                Lihat Kartu Keluarga</a>
+                                        @endif
+                                    </small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="bukti_uang_pangkal" class="form-label">Bukti Pembayaran Uang
+                                        Pangkal</label>
+                                    <input type="file" accept="image/*" class="form-control" name="bukti_uang_pangkal"
+                                        id="bukti_uang_pangkal">
+                                    @error('bukti_uang_pangkal')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        <br>
+                                    @enderror
+                                    <small class="text-muted">
+                                        <span>FORMAT JPG,JPEG,PNG. MAX: 2 MB - </span>
+                                        @if ($santri->bukti_uang_pangkal)
+                                            <a href="{{ asset('storage/bukti_uang_pangkal/' . $santri->bukti_uang_pangkal) }}"
+                                                target="_blank">
+                                                Lihat Bukti Pembayaran Uang Pangkal</a>
+                                        @endif
+                                    </small>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="ukuran_baju_olahraga" class="form-label">Ukuran Baju Olahraga</label>
+                                    <select name="ukuran_baju_olahraga" id="ukuran_baju_olahraga" class="form-select">
+                                        <option value="" disabled @selected(old('ukuran_baju_olahraga') == '')>
+                                            -- pilih ukuran baju --
+                                        </option>
+                                        @foreach (['S', 'M', 'L', 'XL', 'XXL'] as $item)
+                                            <option @selected(old('ukuran_baju_olahraga', $santri->ukuran_baju_olahraga) == $item)>{{ $item }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('ukuran_baju_olahraga')
+                                        <small class="text-danger">{{ $message }}</small>
+                                        <br>
+                                    @enderror
+                                </div>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                            <button type="button" class="btn btn-primary"
+                                onclick="document.getElementById('form-daftar-ulang').submit()">Kirim</button>
+                        </div>
                     </div>
-                    <div class="d-flex align-items-center gap-3">
-                        <button class="btn btn-primary">Kirim</button>
-                        @if ($santri->bukti_uang_pangkal)
-                            <a href="{{ asset('storage/bukti_uang_pangkal/' . $santri->bukti_uang_pangkal) }}" target="_blank">
-                                Lihat Bukti Pembayaran Uang Pangkal</a>
-                        @endif
-                    </div>
-                </form>
+                </div>
             </div>
         @endif
 

@@ -26,6 +26,20 @@
                 @endcan
 
                 @can('admin')
+                    <form action="{{ route('santri.toggle-daftar-ulang', $santri) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        @if ($santri->status_daftar_ulang)
+                            <button class="btn btn-sm btn-success">
+                                <i class="bi bi-check-circle-fill"></i> Daftar Ulang
+                            </button>
+                        @else
+                            <button class="btn btn-sm btn-secondary">
+                                <i class="bi bi-x-circle-fill"></i> Daftar Ulang
+                            </button>
+                        @endif
+                    </form>
+
                     <form action="{{ route('santri.toggle-lulus', $santri) }}" method="POST">
                         @csrf
                         @method('PUT')
@@ -111,17 +125,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Bukti Pembayaran</th>
-                                    <td class="px-2">:</td>
-                                    <td>
-                                        @if ($santri->bukti_pembayaran)
-                                            <a href="{{ asset('storage/bukti_pembayaran/' . $santri->bukti_pembayaran) }}"
-                                                target="_blank">Lihat
-                                                Bukti Pembayaran</a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th>Status Daftar Ulang</th>
                                     <td class="px-2">:</td>
                                     <td>
@@ -137,16 +140,55 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Bukti Daftar Ulang</th>
+                                    <th>Bukti Pembayaran</th>
+                                    <td class="px-2">:</td>
+                                    <td>
+                                        @if ($santri->bukti_pembayaran)
+                                            <a href="{{ asset('storage/bukti_pembayaran/' . $santri->bukti_pembayaran) }}"
+                                                target="_blank">Lihat
+                                                Bukti Pembayaran</a>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Uang Pangkal</th>
                                     <td class="px-2">:</td>
                                     <td>
                                         @if ($santri->bukti_uang_pangkal)
                                             <a href="{{ asset('storage/bukti_uang_pangkal/' . $santri->bukti_uang_pangkal) }}"
                                                 target="_blank">
-                                                Lihat Bukti Daftar Ulang
+                                                Lihat Bukti Pembayaran
                                             </a>
                                         @endif
                                     </td>
+                                </tr>
+                                <tr>
+                                    <th>Ijazah</th>
+                                    <td class="px-2">:</td>
+                                    <td>
+                                        @if ($santri->ijazah)
+                                            <a href="{{ asset('storage/ijazah/' . $santri->ijazah) }}" target="_blank">
+                                                Lihat Ijazah
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Kartu Keluarga</th>
+                                    <td class="px-2">:</td>
+                                    <td>
+                                        @if ($santri->kartu_keluarga)
+                                            <a href="{{ asset('storage/kartu_keluarga/' . $santri->kartu_keluarga) }}"
+                                                target="_blank">
+                                                Lihat Kartu Keluarga
+                                            </a>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Ukuran Baju Olahraga</th>
+                                    <td class="px-2">:</td>
+                                    <td>{{ $santri->ukuran_baju_olahraga ?? '-' }}</td>
                                 </tr>
                             </table>
                         </div>

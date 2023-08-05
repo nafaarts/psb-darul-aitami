@@ -31,6 +31,9 @@ class Santri extends Model
         'status_lulus',
         'status_daftar_ulang',
         'bukti_uang_pangkal',
+        'ijazah',
+        'kartu_keluarga',
+        'ukuran_baju_olahraga',
         'foto'
     ];
 
