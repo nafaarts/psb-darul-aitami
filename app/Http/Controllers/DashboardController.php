@@ -36,7 +36,24 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('jumlahPendaftar', 'jumlahSantriwati', 'jumlahSantriwan', 'jumlahLulus', 'santri', 'data'));
     }
 
-    function santriLulus()
+    public function santri()
+    {
+        $santri = Santri::when(request('cari'), function ($query) {
+            $query->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')
+                ->orWhere('nik', 'LIKE', '%' . request('cari') . '%')
+                ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%');
+        })
+            ->orWhereHas('user', function ($query) {
+                return $query->where('nama', 'LIKE', '%' . request('cari') . '%');
+            })
+            ->whereNot('status_daftar_ulang', 0)
+            ->latest()
+            ->paginate();
+
+        return view('santri.santri', ['santri' => $santri]);
+    }
+
+    public function santriLulus()
     {
         $santri = Santri::when(request('cari'), function ($query) {
             $query->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')

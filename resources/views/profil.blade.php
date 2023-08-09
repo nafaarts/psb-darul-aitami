@@ -268,7 +268,7 @@
                                         <option value="" disabled @selected(old('ukuran_baju_olahraga') == '')>
                                             -- pilih ukuran baju --
                                         </option>
-                                        @foreach (['S', 'M', 'L', 'XL', 'XXL'] as $item)
+                                        @foreach (['S', 'M', 'L', 'XL', 'XXL', 'XXXL', 'XXXXL', 'XXXXXL'] as $item)
                                             <option @selected(old('ukuran_baju_olahraga', $santri->ukuran_baju_olahraga) == $item)>{{ $item }}</option>
                                         @endforeach
                                     </select>

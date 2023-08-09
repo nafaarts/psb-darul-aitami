@@ -7,6 +7,7 @@
                     <a @class(['nav-link', 'active' => request()->routeIs('users*')]) aria-current="page" href="{{ route('users.index') }}">Data User</a>
                     <a @class(['nav-link', 'active' => request()->routeIs('santri.lulus')]) aria-current="page" href="{{ route('santri.lulus') }}">Data Santri
                         Lulus</a>
+                    <a @class(['nav-link', 'active' => request()->routeIs('santri')]) aria-current="page" href="{{ route('santri') }}">Data Santri</a>
                     <a @class([
                         'nav-link',
                         'active' => request()->routeIs('kategori-nilai*'),

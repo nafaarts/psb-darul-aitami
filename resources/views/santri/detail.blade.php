@@ -10,7 +10,7 @@
             {{ session('berhasil') }}
         </div>
     @endif
-    <div class="card p-3">
+    <div class="card p-3 mb-3">
         <h5 class="m-0">Detail Santri</h5>
         <hr>
         <div
@@ -125,21 +125,6 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <th>Status Daftar Ulang</th>
-                                    <td class="px-2">:</td>
-                                    <td>
-                                        @if ($santri->status_daftar_ulang)
-                                            <span class="badge bg-success"><i class="bi bi-check-circle-fill"></i>
-                                                Sudah Mendaftar Ulang
-                                            </span>
-                                        @else
-                                            <span class="badge bg-warning"><i class="bi bi-exclamation-triangle-fill"></i>
-                                                Belum Mendaftar Ulang
-                                            </span>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
                                     <th>Bukti Pembayaran</th>
                                     <td class="px-2">:</td>
                                     <td>
@@ -149,46 +134,6 @@
                                                 Bukti Pembayaran</a>
                                         @endif
                                     </td>
-                                </tr>
-                                <tr>
-                                    <th>Uang Pangkal</th>
-                                    <td class="px-2">:</td>
-                                    <td>
-                                        @if ($santri->bukti_uang_pangkal)
-                                            <a href="{{ asset('storage/bukti_uang_pangkal/' . $santri->bukti_uang_pangkal) }}"
-                                                target="_blank">
-                                                Lihat Bukti Pembayaran
-                                            </a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Ijazah</th>
-                                    <td class="px-2">:</td>
-                                    <td>
-                                        @if ($santri->ijazah)
-                                            <a href="{{ asset('storage/ijazah/' . $santri->ijazah) }}" target="_blank">
-                                                Lihat Ijazah
-                                            </a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Kartu Keluarga</th>
-                                    <td class="px-2">:</td>
-                                    <td>
-                                        @if ($santri->kartu_keluarga)
-                                            <a href="{{ asset('storage/kartu_keluarga/' . $santri->kartu_keluarga) }}"
-                                                target="_blank">
-                                                Lihat Kartu Keluarga
-                                            </a>
-                                        @endif
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Ukuran Baju Olahraga</th>
-                                    <td class="px-2">:</td>
-                                    <td>{{ $santri->ukuran_baju_olahraga ?? '-' }}</td>
                                 </tr>
                             </table>
                         </div>
@@ -448,6 +393,69 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="card p-3">
+        <h5 class="m-0">Daftar Ulang</h5>
+        <hr>
+        <div class="table-responsive">
+            <table>
+                <tr>
+                    <th>Status Daftar Ulang</th>
+                    <td class="px-2">:</td>
+                    <td>
+                        @if ($santri->status_daftar_ulang)
+                            <span class="badge bg-success"><i class="bi bi-check-circle-fill"></i>
+                                Sudah Mendaftar Ulang
+                            </span>
+                        @else
+                            <span class="badge bg-warning"><i class="bi bi-exclamation-triangle-fill"></i>
+                                Belum Mendaftar Ulang
+                            </span>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Uang Pangkal</th>
+                    <td class="px-2">:</td>
+                    <td>
+                        @if ($santri->bukti_uang_pangkal)
+                            <a href="{{ asset('storage/bukti_uang_pangkal/' . $santri->bukti_uang_pangkal) }}"
+                                target="_blank">
+                                Lihat Bukti Pembayaran
+                            </a>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ijazah</th>
+                    <td class="px-2">:</td>
+                    <td>
+                        @if ($santri->ijazah)
+                            <a href="{{ asset('storage/ijazah/' . $santri->ijazah) }}" target="_blank">
+                                Lihat Ijazah
+                            </a>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Kartu Keluarga</th>
+                    <td class="px-2">:</td>
+                    <td>
+                        @if ($santri->kartu_keluarga)
+                            <a href="{{ asset('storage/kartu_keluarga/' . $santri->kartu_keluarga) }}" target="_blank">
+                                Lihat Kartu Keluarga
+                            </a>
+                        @endif
+                    </td>
+                </tr>
+                <tr>
+                    <th>Ukuran Baju Olahraga</th>
+                    <td class="px-2">:</td>
+                    <td>{{ $santri->ukuran_baju_olahraga ?? '-' }}</td>
+                </tr>
+            </table>
         </div>
     </div>
 

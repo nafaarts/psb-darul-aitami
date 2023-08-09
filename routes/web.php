@@ -31,10 +31,16 @@ Route::get('/informasi', function () {
 
 Route::get('/cek-kelulusan', App\Http\Controllers\CekKelulusanController::class)->name('cek-kelulusan');
 
+Route::get('/administrator', function () {
+    return redirect()->route('login', ['utils' => 'ADMIN']);
+});
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'index'])->name('dashboard')->middleware('can:admin-guru');
 
     Route::get('/santri-lulus', [App\Http\Controllers\DashboardController::class, 'santriLulus'])->name('santri.lulus');
+
+    Route::get('/santri', [App\Http\Controllers\DashboardController::class, 'santri'])->name('santri');
 
     Route::get('/santri/{santri:no_daftar}/detail', [App\Http\Controllers\SantriController::class, 'detail'])->name('santri.detail')->middleware('can:admin-guru');
 
