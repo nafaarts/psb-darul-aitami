@@ -77,4 +77,17 @@ class Santri extends Model
             return $total + $item?->nilai;
         }) / $this->nilai->count();
     }
+
+    public function statusDaftarUlang()
+    {
+        if ($this->status_daftar_ulang) {
+            return 'SUDAH DIKONFIRMASI';
+        }
+
+        if ($this->bukti_uang_pangkal && $this->ijazah && $this->kartu_keluarga && $this->ukuran_baju_olahraga) {
+            return 'BELUM DIKONFIRMASI';
+        }
+
+        return 'BELUM MENDAFTAR ULANG';
+    }
 }

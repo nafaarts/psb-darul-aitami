@@ -225,10 +225,10 @@
         const selectKecamatan = document.getElementById('kecamatan')
         const selectDesa = document.getElementById('desa')
 
-        {{ old('provinsi', $orangTua?->provinsi) }}
-        {{ old('kabupaten', $orangTua?->kabupaten) }}
-        {{ old('kecamatan', $orangTua?->kecamatan) }}
-        {{ old('desa', $orangTua?->desa) }}
+        // {{ old('provinsi', $orangTua?->provinsi) }}
+        // {{ old('kabupaten', $orangTua?->kabupaten) }}
+        // {{ old('kecamatan', $orangTua?->kecamatan) }}
+        // {{ old('desa', $orangTua?->desa) }}
 
         const removeChildren = (parent) => {
             while (parent.firstChild) {

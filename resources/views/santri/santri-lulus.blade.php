@@ -43,7 +43,7 @@
                                 @endif
                             </td>
                             <td>{{ $item->user->nama }}</td>
-                            <td>{{ $item->status_daftar_ulang ? 'SUDAH' : 'BELUM' }}</td>
+                            <td>{{ $item->statusDaftarUlang() }}</td>
                             <td><b>{{ $item->nilaiAverage() }}</b></td>
                             <td>{{ $item->pendidikan?->nama_sekolah }}</td>
                             <td>{{ $item->jenis_kelamin }}</td>

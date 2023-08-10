@@ -26,19 +26,21 @@
                 @endcan
 
                 @can('admin')
-                    <form action="{{ route('santri.toggle-daftar-ulang', $santri) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        @if ($santri->status_daftar_ulang)
-                            <button class="btn btn-sm btn-success">
-                                <i class="bi bi-check-circle-fill"></i> Daftar Ulang
-                            </button>
-                        @else
-                            <button class="btn btn-sm btn-secondary">
-                                <i class="bi bi-x-circle-fill"></i> Daftar Ulang
-                            </button>
-                        @endif
-                    </form>
+                    @if ($santri->status_lulus)
+                        <form action="{{ route('santri.toggle-daftar-ulang', $santri) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            @if ($santri->status_daftar_ulang)
+                                <button class="btn btn-sm btn-success">
+                                    <i class="bi bi-check-circle-fill"></i> Daftar Ulang
+                                </button>
+                            @else
+                                <button class="btn btn-sm btn-secondary">
+                                    <i class="bi bi-x-circle-fill"></i> Daftar Ulang
+                                </button>
+                            @endif
+                        </form>
+                    @endif
 
                     <form action="{{ route('santri.toggle-lulus', $santri) }}" method="POST">
                         @csrf
@@ -407,11 +409,11 @@
                     <td>
                         @if ($santri->status_daftar_ulang)
                             <span class="badge bg-success"><i class="bi bi-check-circle-fill"></i>
-                                Sudah Mendaftar Ulang
+                                {{ $santri->statusDaftarUlang() }}
                             </span>
                         @else
                             <span class="badge bg-warning"><i class="bi bi-exclamation-triangle-fill"></i>
-                                Belum Mendaftar Ulang
+                                {{ $santri->statusDaftarUlang() }}
                             </span>
                         @endif
                     </td>

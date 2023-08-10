@@ -34,7 +34,7 @@
                     @forelse ($santri as $item)
                         <tr>
                             <th scope="row">{{ $item->no_daftar }}</th>
-                            <td>{{ $item->status_daftar_ulang ? 'SUDAH' : 'BELUM' }}</td>
+                            <td>{{ $item->statusDaftarUlang() }}</td>
                             <td>{{ $item->user->nama }}</td>
                             <td><b>{{ $item->nilaiAverage() }}</b></td>
                             <td>{{ $item->pendidikan?->nama_sekolah }}</td>

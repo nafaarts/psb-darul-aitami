@@ -22,13 +22,17 @@ class DashboardController extends Controller
         $jumlahSantriwan = Santri::where('jenis_kelamin', 'L')->count();
         $jumlahLulus = Santri::where('status_lulus', true)->count();
 
-        $santri = Santri::latest()
-            ->whereHas('user', function ($query) {
+        $santri = Santri::when(request('cari'),  function ($query) {
+            $query->whereHas('user', function ($query) {
                 return $query->where('nama', 'LIKE', '%' . request('cari') . '%');
             })
-            ->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')
-            ->orWhere('nik', 'LIKE', '%' . request('cari') . '%')
-            ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%')
+                ->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')
+                ->orWhere('nik', 'LIKE', '%' . request('cari') . '%')
+                ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%');
+        })
+            ->whereNot('status_lulus', 1)
+            ->whereNot('status_daftar_ulang', 1)
+            ->latest()
             ->paginate(15);
 
         $data['status-pendaftaran'] = SiteMeta::where('name', 'status-pendaftaran')->first()?->value ?? false;
@@ -39,9 +43,11 @@ class DashboardController extends Controller
     public function santri()
     {
         $santri = Santri::when(request('cari'), function ($query) {
-            $query->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')
-                ->orWhere('nik', 'LIKE', '%' . request('cari') . '%')
-                ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%');
+            $query->where(function ($query) {
+                $query->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')
+                    ->orWhere('nik', 'LIKE', '%' . request('cari') . '%')
+                    ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%');
+            });
         })
             ->orWhereHas('user', function ($query) {
                 return $query->where('nama', 'LIKE', '%' . request('cari') . '%');
@@ -56,14 +62,17 @@ class DashboardController extends Controller
     public function santriLulus()
     {
         $santri = Santri::when(request('cari'), function ($query) {
-            $query->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')
-                ->orWhere('nik', 'LIKE', '%' . request('cari') . '%')
-                ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%');
+            $query->where(function ($query) {
+                $query->orWhere('no_daftar', 'LIKE', '%' . request('cari') . '%')
+                    ->orWhere('nik', 'LIKE', '%' . request('cari') . '%')
+                    ->orWhere('nisn', 'LIKE', '%' . request('cari') . '%');
+            });
         })
             ->orWhereHas('user', function ($query) {
                 return $query->where('nama', 'LIKE', '%' . request('cari') . '%');
             })
             ->whereNot('status_lulus', 0)
+            ->whereNot('status_daftar_ulang', 1)
             ->latest()
             ->paginate();
 
