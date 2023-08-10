@@ -5,29 +5,35 @@
 @section('content')
     <x-admin-navbar />
 
-    <div class="row">
-        <div class="col-md-3">
+    <div class="d-flex flex-column flex-md-row" style="gap: 10px">
+        <div class="w-100">
             <div class="card mb-3 p-3">
                 <small class="text-muted">Jumlah Pendaftar</small>
                 <h3 class="m-0">{{ $jumlahPendaftar }}</h3>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="w-100">
             <div class="card mb-3 p-3">
                 <small class="text-muted">Jumlah Santriwati</small>
                 <h3 class="m-0">{{ $jumlahSantriwati }}</h3>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="w-100">
             <div class="card mb-3 p-3">
                 <small class="text-muted">Jumlah Santriwan</small>
                 <h3 class="m-0">{{ $jumlahSantriwan }}</h3>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="w-100">
             <div class="card mb-3 p-3">
                 <small class="text-muted">Jumlah Lulus</small>
                 <h3 class="m-0">{{ $jumlahLulus }}</h3>
+            </div>
+        </div>
+        <div class="w-100">
+            <div class="card mb-3 p-3">
+                <small class="text-muted">Jumlah Daftar Ulang</small>
+                <h3 class="m-0">{{ $jumlahDaftarUlang }}</h3>
             </div>
         </div>
     </div>

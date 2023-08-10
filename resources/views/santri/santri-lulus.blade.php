@@ -6,16 +6,36 @@
     <x-admin-navbar />
 
     <div class="card p-3">
-        <h5 class="m-0">Data Santri Lulus</h5>
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="m-0">Data Santri Lulus</h5>
+            <form action="" method="get" id="filter-form">
+                <div class="btn-group" role="group">
+                    <input type="radio" class="btn-check" name="filter" id="filter1" autocomplete="off" value="SEMUA">
+                    <label class="btn btn-outline-primary" for="filter1">SEMUA</label>
+                    <input type="radio" class="btn-check" name="filter" id="filter2" autocomplete="off"
+                        value="BELUM_DIKONFIRMASI" @checked(request('filter') == 'BELUM_DIKONFIRMASI')>
+                    <label class="btn btn-outline-primary" for="filter2">BELUM DIKONFIRMASI</label>
+                    <input type="radio" class="btn-check" name="filter" id="filter3" autocomplete="off"
+                        value="SUDAH_DIKONFIRMASI" @checked(request('filter') == 'SUDAH_DIKONFIRMASI')>
+                    <label class="btn btn-outline-primary" for="filter3">SUDAH DIKONFIRMASI</label>
+                </div>
+            </form>
+            <script>
+                const tombolFilter = document.getElementsByName('filter');
+                const formFilter = document.getElementById('filter-form');
+                tombolFilter.forEach(tombol => {
+                    tombol.onclick = () => formFilter.submit()
+                });
+            </script>
+        </div>
         <hr>
         <form action="{{ route('santri.lulus') }}" method="GET" class="input-group mb-3">
-            <input type="text" class="form-control bg-white" placeholder="Cari Nama, No Daftar, NIK atau NISN" name="cari"
-                value="{{ request('cari') }}">
+            <input type="text" class="form-control bg-white" placeholder="Cari Nama, No Daftar, NIK atau NISN"
+                name="cari" value="{{ request('cari') }}">
             <button class="btn btn-outline-secondary" type="submit">
                 <i class="bi bi-search"></i>
             </button>
         </form>
-
         <div class="table-responsive">
             <table class="table">
                 <thead>

@@ -53,11 +53,11 @@
                                     <td>
                                         @if ($santri->status_daftar_ulang)
                                             <span class="badge bg-success"><i class="bi bi-check-circle-fill"></i>
-                                                Sudah Mendaftar Ulang
+                                                {{ $santri->statusDaftarUlang() }}
                                             </span>
                                         @else
                                             <span class="badge bg-warning"><i class="bi bi-exclamation-triangle-fill"></i>
-                                                Belum Mendaftar Ulang
+                                                {{ $santri->statusDaftarUlang() }}
                                             </span>
                                         @endif
                                     </td>
