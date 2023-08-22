@@ -6,11 +6,14 @@
     <x-admin-navbar />
 
     <div class="card p-3">
-        <h5 class="m-0">Data Santri</h5>
+        <div class="d-flex align-items-center justify-content-between">
+            <h5 class="m-0">Data Santri</h5>
+            <a href="{{ route('santri.export') }}" class="btn btn-sm btn-primary">Export Santri</a>
+        </div>
         <hr>
         <form action="{{ route('santri') }}" method="GET" class="input-group mb-3">
-            <input type="text" class="form-control bg-white" placeholder="Cari Nama, No Daftar, NIK atau NISN" name="cari"
-                value="{{ request('cari') }}">
+            <input type="text" class="form-control bg-white" placeholder="Cari Nama, No Daftar, NIK atau NISN"
+                name="cari" value="{{ request('cari') }}">
             <button class="btn btn-outline-secondary" type="submit">
                 <i class="bi bi-search"></i>
             </button>
@@ -55,7 +58,8 @@
                                             </button>
                                         @endif
                                     </form> --}}
-                                    <a href="{{ route('santri.detail', $item) }}" class="btn btn-sm btn-warning text-white">
+                                    <a href="{{ route('santri.detail', $item) }}"
+                                        class="btn btn-sm btn-warning text-white">
                                         <i class="bi bi-eye-fill"></i> Lihat
                                     </a>
                                 </div>

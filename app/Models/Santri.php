@@ -73,9 +73,9 @@ class Santri extends Model
             return 0;
         }
 
-        return $this->nilai->reduce(function ($total, $item) {
+        return number_format((float) $this->nilai->reduce(function ($total, $item) {
             return $total + $item?->nilai;
-        }) / $this->nilai->count();
+        }) / $this->nilai->count(), 2, '.', '');
     }
 
     public function statusDaftarUlang()

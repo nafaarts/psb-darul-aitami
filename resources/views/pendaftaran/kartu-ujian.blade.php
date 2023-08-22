@@ -11,7 +11,7 @@
         th,
         td {
             text-align: left;
-            padding: 5px 0;
+            padding: 3px 0;
         }
 
         @media print {
@@ -19,6 +19,7 @@
                 width: 21cm;
                 padding: 15mm 15mm;
             }
+
         }
     </style>
 </head>
@@ -34,9 +35,15 @@
                     <small>Penerimaan Santri Baru Pondok Pesantren Darul Aitami</small>
                 </td>
             </tr>
+
             <tr>
-                <td style="width: 50%; padding-left: 20px">
-                    <table style="width: 100%; margin-top: 20px;">
+                <td style="width: 30%; padding: 25px; vertical-align: top">
+                    <div
+                        style="background: lightgray; height: 250px; aspect-ratio: 2/3; background-image: url({{ $fotoSantri }}); background-size: cover; background-position: center center;">
+                    </div>
+                </td>
+                <td>
+                    <table style="width: 100%; padding-top: 20px">
                         <tr>
                             <th>No Daftar</th>
                             <td>{{ $santri?->no_daftar }}</td>
@@ -47,17 +54,14 @@
                         </tr>
                         <tr>
                             <th>TTL</th>
-                            <td>{{ $santri?->tempat_lahir }}, {{ date('d F Y', strtotime($santri?->tanggal_lahir)) }}
+                            <td>{{ $santri?->tempat_lahir }},
+                                {{ now()->parse($santri?->tanggal_lahir)->translatedFormat('d F Y') }}
                             </td>
                         </tr>
                         <tr>
                             <th>Jenis Kelamin</th>
                             <td>{{ $santri?->jenis_kelamin == 'L' ? 'Laki-laki' : 'Perempuan' }}</td>
                         </tr>
-                    </table>
-                </td>
-                <td style="width: 50%; padding-right: 20px">
-                    <table style="width: 100%; margin-top: 20px;">
                         <tr>
                             <th>Sekolah Asal</th>
                             <td>{{ $santri?->pendidikan?->nama_sekolah }}</td>
@@ -78,29 +82,31 @@
                 </td>
             </tr>
             <tr>
-                <td style="width: 50%; padding-left: 20px">
-                    <img src="{{ $fotoSantri }}" alt="Foto Santri" height="160px">
-                </td>
-                <td style="width: 50%; padding-right: 20px">
-                    <table style="width: 100%; margin: 20px 0;">
+                <td colspan="2">
+                    <table>
                         <tr>
-                            <td colspan="2">Banda Aceh, {{ date('d F Y') }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Orang Tua</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <div style="width: 200px; height: 120px; border-bottom: 1px solid grey"></div>
+                            <td style="width: 65%"></td>
+                            <td style="padding-left: 25px;">
+                                <table style="width: 100%; margin: 20px 0;">
+                                    <tr>
+                                        <td colspan="2">Banda Aceh, {{ now()->translatedFormat('d F Y') }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">Orang Tua</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div style="width: 200px; height: 60px; border-bottom: 1px solid grey">
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
         </table>
-        {{-- <img src="{{ $logo }}" alt="logo">
-        <hr>
-        <img src="{{ $fotoSantri }}" alt="Foto Santri"> --}}
     </div>
 </body>
 

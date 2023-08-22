@@ -379,7 +379,7 @@
                                         <th>{{ $item['nama_pelajaran'] }}</th>
                                         <td class="px-2">:</td>
                                         <td>
-                                            {{ $item['nilai'] }}
+                                            {{ number_format((float) $item['nilai'], 2, '.', '') }}
                                         </td>
                                     </tr>
                                 @endforeach

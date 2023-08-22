@@ -1,8 +1,10 @@
 <?php
 
+use App\Exports\SantriExport;
 use App\Http\Controllers\KartuUjianController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,6 +88,11 @@ Route::middleware('auth')->group(function () {
         Route::delete('/santri/riwayat-penyakit/{riwayatpenyakit}/destroy', [App\Http\Controllers\SantriController::class, 'destroyRiwayatPenyakit'])->name('santri.destroy-riwayat-penyakit');
 
         Route::delete('/santri/{santri}/destroy', [App\Http\Controllers\SantriController::class, 'destroy'])->name('santri.destroy');
+
+        // export santrio
+        Route::get('santri/export/', function () {
+            return Excel::download(new SantriExport, 'santri-' . date('Y') . '.xlsx');
+        })->name('santri.export');
 
         Route::get('/edit-pengumuman', [App\Http\Controllers\KonfigurasiController::class, 'pengumuman'])->name('pengumuman.edit');
         Route::get('/edit-profil', [App\Http\Controllers\KonfigurasiController::class, 'profil'])->name('profil.edit');
