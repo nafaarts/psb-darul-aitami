@@ -37,13 +37,8 @@
             </tr>
 
             <tr>
-                <td style="width: 30%; padding: 25px; vertical-align: top">
-                    <div
-                        style="background: lightgray; height: 250px; aspect-ratio: 2/3; background-image: url({{ $fotoSantri }}); background-size: cover; background-position: center center;">
-                    </div>
-                </td>
-                <td>
-                    <table style="width: 100%; padding-top: 20px">
+                <td style="width: 70%;">
+                    <table style="width: 100%; padding: 20px">
                         <tr>
                             <th>No Daftar</th>
                             <td>{{ $santri?->no_daftar }}</td>
@@ -80,30 +75,30 @@
                         </tr>
                     </table>
                 </td>
+                <td style="width: 30%; padding: 25px; vertical-align: top">
+                    <div
+                        style="background: lightgray; height: 250px; aspect-ratio: 2/3; background-image: url({{ $fotoSantri }}); background-size: cover; background-position: center center;">
+                    </div>
+                </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <table>
-                        <tr>
-                            <td style="width: 65%"></td>
-                            <td style="padding-left: 25px;">
-                                <table style="width: 100%; margin: 20px 0;">
-                                    <tr>
-                                        <td colspan="2">Banda Aceh, {{ now()->translatedFormat('d F Y') }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">Orang Tua</td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="2">
-                                            <div style="width: 200px; height: 60px; border-bottom: 1px solid grey">
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
+                    <div style="margin-left: 450px">
+                        <table style="width: 100%; margin: 20px 0;">
+                            <tr>
+                                <td colspan="2">Banda Aceh, {{ now()->translatedFormat('d F Y') }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">Orang Tua</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <div style="width: 200px; height: 60px; border-bottom: 1px solid grey">
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </td>
             </tr>
         </table>

@@ -4,7 +4,7 @@ use App\Exports\SantriExport;
 use App\Http\Controllers\KartuUjianController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Excel;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
